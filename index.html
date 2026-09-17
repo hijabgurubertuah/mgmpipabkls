@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>MGMP IPA Kecamatan Bengkalis - Musyawarah Guru Mata Pelajaran IPA</title>
+    <meta name="description" content="Portal resmi Musyawarah Guru Mata Pelajaran Ilmu Pengetahuan Alam (MGMP IPA) Kecamatan Bengkalis, Kabupaten Bengkalis, Riau. Wadah kolaborasi, inovasi, dan profesionalisme guru sains." />
+    <meta property="og:title" content="MGMP IPA Kecamatan Bengkalis - Musyawarah Guru Mata Pelajaran IPA" />
+    <meta property="og:description" content="Portal resmi Musyawarah Guru Mata Pelajaran Ilmu Pengetahuan Alam (MGMP IPA) Kecamatan Bengkalis, Kabupaten Bengkalis, Riau. Wadah kolaborasi, inovasi, dan profesionalisme guru sains." />
+    <meta property="og:type" content="website" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="theme-color" content="#0f172a" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="apple-mobile-web-app-title" content="MGMP IPA Bengkalis" />
+    <link id="dynamic-favicon" rel="icon" type="image/x-icon" href="/favicon.ico?v=4" />
+    <link rel="icon" type="image/x-icon" href="/favicon.ico?v=4" />
+    <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=4" />
+    <link id="dynamic-apple-icon" rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png?v=4" />
+    <script>
+      // Instantly apply user-uploaded school favicon from local storage before render
+      (function() {
+        try {
+          var raw = localStorage.getItem('smpn1_public_config_v4') || localStorage.getItem('public_school_config') || localStorage.getItem('admin_school_config') || localStorage.getItem('school_config');
+          if (raw) {
+            var parsed = JSON.parse(raw);
+            var icon = (parsed && parsed.identity && (parsed.identity.faviconUrl || parsed.identity.logoUrl)) || '';
+            if (icon && typeof icon === 'string' && icon.trim() && !icon.includes('photo-1546410531') && !icon.includes('photo-1594608661623')) {
+              var fav = document.getElementById('dynamic-favicon');
+              if (fav) fav.href = icon.trim();
+              var apple = document.getElementById('dynamic-apple-icon');
+              if (apple) apple.href = icon.trim();
+            }
+          }
+        } catch (e) {}
+      })();
+    </script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <script>
+      // Suppress benign [vite] websocket connection logs in sandboxed preview iframe
+      (function() {
+        const origError = console.error;
+        console.error = function(...args) {
+          if (args.length > 0 && typeof args[0] === 'string' && args[0].includes('[vite]')) {
+            console.debug(...args);
+            return;
+          }
+          origError.apply(console, args);
+        };
+      })();
+    </script>
+  </head>
+  <body class="font-sans antialiased bg-slate-50 text-slate-900 selection:bg-blue-600 selection:text-white">
+    <div id="root">
+      <div style="min-height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; background-color: #020617; color: #ffffff; font-family: system-ui, -apple-system, sans-serif; text-align: center; padding: 24px;">
+        <div style="width: 72px; height: 72px; border-radius: 16px; background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.15); display: flex; align-items: center; justify-content: center; margin-bottom: 24px;">
+          <svg style="width: 36px; height: 36px; color: #60a5fa;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M10 2v7.527a2 2 0 0 1-.211.896L4.72 20.55a1 1 0 0 0 .9 1.45h12.76a1 1 0 0 0 .9-1.45l-5.069-10.127A2 2 0 0 1 14 9.527V2" />
+            <path d="M8.5 2h7" />
+            <path d="M7 16h10" />
+          </svg>
+        </div>
+        <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 8px;">
+          <div style="width: 18px; height: 18px; border: 2.5px solid #60a5fa; border-top-color: transparent; border-radius: 50%; animation: spin 0.8s linear infinite;"></div>
+          <h2 style="font-size: 18px; font-weight: 800; letter-spacing: 0.05em; margin: 0; color: #f8fafc;">MGMP IPA KEC. BENGKALIS</h2>
+        </div>
+        <p style="font-size: 13px; color: #94a3b8; margin: 0;">Memuat Portal Resmi...</p>
+        <style>@keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }</style>
+      </div>
+    </div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>
+
