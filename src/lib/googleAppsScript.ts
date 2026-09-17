@@ -10,9 +10,9 @@ export const DEFAULT_FOLDER_NAME = '[MGMP IPA Bengkalis] Web Assets';
  * atau setelah reset cache. Tetap bisa diganti kapan saja dari tab "Google Drive & Sheets".
  */
 export const DEFAULT_APPS_SCRIPT_WEB_APP_URL =
-  'https://script.google.com/macros/s/AKfycbzDwgMpuYfhYLKXwKZx1i03NliLZnCGf_17Fnra29JE7TyoToQ6PKpdp7z6lRcOq1VJ/exec';
+  'https://script.google.com/macros/s/AKfycbzl1MZPsCNYLbYhcaEKZumXt7XHH0HlcT9Y9Ap5ZelMSZoGOZf5ZWEptc9znHINrLLA/exec';
 
-export const DEFAULT_APPS_SCRIPT_FOLDER_ID = '1IZHlhQxAREuthdmf5M5QCSqDFQPDyq6s';
+export const DEFAULT_APPS_SCRIPT_FOLDER_ID = '';
 
 /**
  * Complete, ready-to-use Google Apps Script (.gs) source code.
@@ -289,7 +289,25 @@ export function getStoredAppsScriptConfig(): GoogleAppsScriptConfig {
     }
   }
 
-  // 3. Fallback to hardcoded default in code if webAppUrl is still empty
+  // 3. Auto-migrate obsolete URL or folder ID from previous account
+  const OBSOLETE_URL =
+    'https://script.google.com/macros/s/AKfycbzDwgMpuYfhYLKXwKZx1i03NliLZnCGf_17Fnra29JE7TyoToQ6PKpdp7z6lRcOq1VJ/exec';
+  const OBSOLETE_FOLDER_ID = '1IZHlhQxAREuthdmf5M5QCSqDFQPDyq6s';
+
+  if (stored?.webAppUrl === OBSOLETE_URL) {
+    stored.webAppUrl = DEFAULT_APPS_SCRIPT_WEB_APP_URL;
+    if (stored.folderId === OBSOLETE_FOLDER_ID) {
+      stored.folderId = '';
+    }
+    // Update local storage key with new URL
+    try {
+      localStorage.setItem(APPS_SCRIPT_STORAGE_KEY, JSON.stringify(stored));
+    } catch {
+      // ignore
+    }
+  }
+
+  // 4. Fallback to hardcoded default in code if webAppUrl is still empty
   const activeWebAppUrl =
     (stored?.webAppUrl && stored.webAppUrl.trim() !== '')
       ? stored.webAppUrl.trim()

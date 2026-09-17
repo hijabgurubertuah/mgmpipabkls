@@ -8,14 +8,16 @@ import {
   signOut,
 } from 'firebase/auth';
 
+import firebaseAppletConfig from '../../firebase-applet-config.json';
+
 const FIREBASE_CONFIG = {
-  projectId: 'gen-lang-client-0999699449',
-  appId: '1:319360539506:web:894f0f9c3612848f8a9beb',
-  apiKey: 'AIzaSyCOZgLPjDQ61WyWptoYS1tVH_zZLsNVeFQ',
-  authDomain: 'gen-lang-client-0999699449.firebaseapp.com',
-  firestoreDatabaseId: 'ai-studio-e8590637-9651-4312-9d0c-eb416143de72',
-  storageBucket: 'gen-lang-client-0999699449.firebasestorage.app',
-  messagingSenderId: '319360539506',
+  projectId: firebaseAppletConfig.projectId || 'gen-lang-client-0979580509',
+  appId: firebaseAppletConfig.appId || '1:328174793338:web:ce537c6dcb615ffb3181c3',
+  apiKey: firebaseAppletConfig.apiKey || 'AIzaSyCFRzKUxkxwQdRy_ITL1M1-b-vXUC82HoQ',
+  authDomain: firebaseAppletConfig.authDomain || 'gen-lang-client-0979580509.firebaseapp.com',
+  firestoreDatabaseId: firebaseAppletConfig.firestoreDatabaseId || 'ai-studio-webmgmpipapublis-1e98efda-1d23-4a0f-8c43-c6dc2b90d0f0',
+  storageBucket: firebaseAppletConfig.storageBucket || 'gen-lang-client-0979580509.firebasestorage.app',
+  messagingSenderId: firebaseAppletConfig.messagingSenderId || '328174793338',
 };
 
 let app: FirebaseApp;

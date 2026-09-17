@@ -18,6 +18,8 @@ import { DEFAULT_SCHOOL_CONFIG, DEFAULT_NEWS_ARTICLES } from './defaultData';
 import { getOfflineItem, setOfflineItem, clearOfflineStorage } from './offlineStorage';
 import { saveStoredAppsScriptConfig } from './googleAppsScript';
 
+import firebaseAppletConfig from '../../firebase-applet-config.json';
+
 // Silence internal retry and connection warning logs from Firestore in browser/iframe environments
 try {
   setLogLevel('silent');
@@ -26,13 +28,13 @@ try {
 }
 
 const FIREBASE_CONFIG = {
-  projectId: 'gen-lang-client-0999699449',
-  appId: '1:319360539506:web:894f0f9c3612848f8a9beb',
-  apiKey: 'AIzaSyCOZgLPjDQ61WyWptoYS1tVH_zZLsNVeFQ',
-  authDomain: 'gen-lang-client-0999699449.firebaseapp.com',
-  firestoreDatabaseId: 'ai-studio-e8590637-9651-4312-9d0c-eb416143de72',
-  storageBucket: 'gen-lang-client-0999699449.firebasestorage.app',
-  messagingSenderId: '319360539506',
+  projectId: firebaseAppletConfig.projectId || 'gen-lang-client-0979580509',
+  appId: firebaseAppletConfig.appId || '1:328174793338:web:ce537c6dcb615ffb3181c3',
+  apiKey: firebaseAppletConfig.apiKey || 'AIzaSyCFRzKUxkxwQdRy_ITL1M1-b-vXUC82HoQ',
+  authDomain: firebaseAppletConfig.authDomain || 'gen-lang-client-0979580509.firebaseapp.com',
+  firestoreDatabaseId: firebaseAppletConfig.firestoreDatabaseId || 'ai-studio-webmgmpipapublis-1e98efda-1d23-4a0f-8c43-c6dc2b90d0f0',
+  storageBucket: firebaseAppletConfig.storageBucket || 'gen-lang-client-0979580509.firebasestorage.app',
+  messagingSenderId: firebaseAppletConfig.messagingSenderId || '328174793338',
 };
 
 // Dual Cache Keys: Separate storage for Public visitors vs Admin authenticated editors
@@ -166,7 +168,19 @@ export function normalizeSchoolConfig(raw: Partial<SchoolConfig> | null | undefi
     ppdb: { ...DEFAULT_SCHOOL_CONFIG.ppdb, ...(sanitizedRaw.ppdb || {}) },
     embeds: { ...DEFAULT_SCHOOL_CONFIG.embeds, ...(sanitizedRaw.embeds || {}) },
     footer: { ...DEFAULT_SCHOOL_CONFIG.footer, ...(sanitizedRaw.footer || {}) },
-    googleAppsScript: { ...DEFAULT_SCHOOL_CONFIG.googleAppsScript, ...(sanitizedRaw.googleAppsScript || {}) },
+    googleAppsScript: (() => {
+      const gas = { ...DEFAULT_SCHOOL_CONFIG.googleAppsScript, ...(sanitizedRaw.googleAppsScript || {}) };
+      const OBSOLETE_URL =
+        'https://script.google.com/macros/s/AKfycbzDwgMpuYfhYLKXwKZx1i03NliLZnCGf_17Fnra29JE7TyoToQ6PKpdp7z6lRcOq1VJ/exec';
+      const OBSOLETE_FOLDER = '1IZHlhQxAREuthdmf5M5QCSqDFQPDyq6s';
+      if (gas.webAppUrl === OBSOLETE_URL) {
+        gas.webAppUrl = DEFAULT_SCHOOL_CONFIG.googleAppsScript.webAppUrl;
+        if (gas.folderId === OBSOLETE_FOLDER) {
+          gas.folderId = '';
+        }
+      }
+      return gas;
+    })(),
     navMenus: Array.isArray(sanitizedRaw.navMenus) && sanitizedRaw.navMenus.length > 0 ? sanitizedRaw.navMenus : DEFAULT_SCHOOL_CONFIG.navMenus,
     facilities: Array.isArray(sanitizedRaw.facilities) && sanitizedRaw.facilities.length > 0 ? sanitizedRaw.facilities : DEFAULT_SCHOOL_CONFIG.facilities,
     extracurriculars: Array.isArray(sanitizedRaw.extracurriculars) && sanitizedRaw.extracurriculars.length > 0 ? sanitizedRaw.extracurriculars : DEFAULT_SCHOOL_CONFIG.extracurriculars,
