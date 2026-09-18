@@ -47,7 +47,7 @@ export const ImageUploadButton: React.FC<ImageUploadButtonProps> = ({
   preset = 'banner',
   aspectRatio = 'wide',
   layout = 'auto',
-  placeholder = 'Tempel link Google Drive atau URL gambar...',
+  placeholder = 'Tempel tautan atau URL gambar...',
   allowDriveConverter = true,
 }) => {
   const fileInputRef = useRef<HTMLInputElement | null>(null);
@@ -112,7 +112,7 @@ export const ImageUploadButton: React.FC<ImageUploadButtonProps> = ({
     const currentConfig = getStoredAppsScriptConfig();
     if (!currentConfig || !currentConfig.webAppUrl) {
       setUploadError(
-        'Google Apps Script belum dikonfigurasi. Silakan buka tab "Google Drive & Sheets" di menu Admin untuk memasukkan URL Web App Anda.'
+        'Server penyimpanan belum dikonfigurasi. Silakan periksa pengaturan di tab Google Apps Script.'
       );
       return;
     }
@@ -120,7 +120,7 @@ export const ImageUploadButton: React.FC<ImageUploadButtonProps> = ({
     setIsProcessing(true);
     setUploadError(null);
     setSuccessInfo(null);
-    setProcessingStatus('Mengunggah ke Google Drive...');
+    setProcessingStatus('Mengunggah gambar...');
 
     try {
       const result = await uploadFileViaAppsScript(file, {
@@ -130,11 +130,12 @@ export const ImageUploadButton: React.FC<ImageUploadButtonProps> = ({
         onProgress: (status) => setProcessingStatus(status),
       });
 
+      // ONLY set the image URL for preview after the server confirms it has been safely stored!
       onChange(result.fileUrl);
-      setSuccessInfo(`Tersimpan di Google Drive (${formatFileSize(result.size)})`);
+      setSuccessInfo(`Gambar berhasil tersimpan (${formatFileSize(result.size)})`);
     } catch (err: unknown) {
       const errorMsg = err instanceof Error ? err.message : String(err);
-      setUploadError(`Gagal ke Google Drive: ${errorMsg}`);
+      setUploadError(`Gagal mengunggah gambar: ${errorMsg}`);
     } finally {
       setIsProcessing(false);
       setProcessingStatus('');
@@ -229,6 +230,14 @@ export const ImageUploadButton: React.FC<ImageUploadButtonProps> = ({
           <div className={`relative overflow-hidden border border-slate-200 bg-slate-100 shrink-0 ${getPreviewClasses()}`}>
             <img src={value} alt="Preview" className="w-full h-full object-cover" />
             
+            {/* Success badge at bottom-left when newly saved */}
+            {successInfo && (
+              <div className="absolute bottom-1.5 left-1.5 bg-emerald-600/90 backdrop-blur-xs text-white text-[10px] font-bold px-1.5 py-0.5 rounded-md flex items-center gap-1 shadow-xs pointer-events-none">
+                <CheckCircle2 className="w-3 h-3 stroke-[2.5]" />
+                <span>Tersimpan</span>
+              </div>
+            )}
+
             {/* Red X Button at top-right corner */}
             <button
               type="button"
@@ -248,7 +257,7 @@ export const ImageUploadButton: React.FC<ImageUploadButtonProps> = ({
 
         {/* Upload Controls */}
         <div className="flex-1 w-full space-y-2">
-          {/* 4 Method Tabs: Drive, Galeri, WebP, Link */}
+          {/* 4 Method Tabs: Unggah, Galeri, WebP, Link */}
           <div className="grid grid-cols-4 gap-1 p-1 bg-slate-100 rounded-lg border border-slate-200">
             <button
               type="button"
@@ -258,10 +267,10 @@ export const ImageUploadButton: React.FC<ImageUploadButtonProps> = ({
                   ? 'bg-blue-600 text-white shadow-xs'
                   : 'text-slate-600 hover:text-slate-900'
               }`}
-              title="Unggah baru ke Google Drive via Apps Script"
+              title="Unggah gambar baru langsung ke Cloud"
             >
               <Zap className="w-3 h-3 text-amber-300 shrink-0" />
-              <span className="truncate">Drive</span>
+              <span className="truncate">Unggah</span>
             </button>
 
             <button
@@ -275,7 +284,7 @@ export const ImageUploadButton: React.FC<ImageUploadButtonProps> = ({
                   ? 'bg-blue-600 text-white shadow-xs'
                   : 'text-slate-600 hover:text-slate-900'
               }`}
-              title="Buka galeri gambar Google Drive"
+              title="Buka galeri media tersimpan"
             >
               <ImageIcon className={`w-3 h-3 shrink-0 ${uploadMode === 'gallery' ? 'text-amber-300' : 'text-blue-500'}`} />
               <span className="truncate">Galeri</span>
@@ -303,14 +312,14 @@ export const ImageUploadButton: React.FC<ImageUploadButtonProps> = ({
                   ? 'bg-white text-slate-900 shadow-xs'
                   : 'text-slate-600 hover:text-slate-900'
               }`}
-              title="Tempel URL tautan gambar atau Google Drive"
+              title="Tempel tautan atau URL gambar luar"
             >
               <LinkIcon className="w-3 h-3 text-blue-500 shrink-0" />
               <span className="truncate">Link</span>
             </button>
           </div>
 
-          {/* Hidden File Input for Drag / Click (Drive & WebP) */}
+          {/* Hidden File Input for Drag / Click (Unggah & WebP) */}
           <input
             ref={fileInputRef}
             type="file"
@@ -319,7 +328,7 @@ export const ImageUploadButton: React.FC<ImageUploadButtonProps> = ({
             onChange={onFileInputChange}
           />
 
-          {/* Mode 1 & 3: Dropzone for Drive or WebP upload */}
+          {/* Mode 1 & 3: Dropzone for Cloud or WebP upload */}
           {(uploadMode === 'gas' || uploadMode === 'local') && (
             <div
               onDragOver={(e) => {
@@ -354,7 +363,7 @@ export const ImageUploadButton: React.FC<ImageUploadButtonProps> = ({
                   )}
                   <span className="font-bold text-slate-800">
                     {uploadMode === 'gas'
-                      ? 'Pilih Gambar ke Google Drive'
+                      ? 'Pilih Gambar untuk Diunggah'
                       : 'Pilih Gambar untuk WebP'}
                   </span>
                   <span className="text-slate-400">atau seret ke sini</span>
@@ -372,7 +381,7 @@ export const ImageUploadButton: React.FC<ImageUploadButtonProps> = ({
                 className="w-full py-2.5 px-3 border border-blue-200 hover:border-blue-400 bg-blue-50/60 hover:bg-blue-50 text-blue-700 font-bold text-xs rounded-xl flex items-center justify-center gap-2 transition-all cursor-pointer shadow-2xs"
               >
                 <ImageIcon className="w-4 h-4 text-blue-600" />
-                <span>Pilih dari Galeri Google Drive</span>
+                <span>Buka Galeri Media</span>
               </button>
 
               {/* Quick thumbnail selector row if items exist */}
@@ -474,7 +483,7 @@ export const ImageUploadButton: React.FC<ImageUploadButtonProps> = ({
           setIsGalleryModalOpen(false);
         }}
         currentValue={value}
-        title={`Penyimpanan Gambar Google Drive — ${label || 'Media'}`}
+        title={`Galeri Media — ${label || 'Media'}`}
       />
     </div>
   );

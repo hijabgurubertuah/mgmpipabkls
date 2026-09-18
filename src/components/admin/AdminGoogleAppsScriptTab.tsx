@@ -318,7 +318,7 @@ export const AdminGoogleAppsScriptTab: React.FC<AdminGoogleAppsScriptTabProps> =
               title="Buka galeri gambar yang pernah diunggah dengan thumbnail rapi"
             >
               <FolderHeart className="w-3.5 h-3.5" />
-              <span>Buka Galeri Foto Drive</span>
+              <span>Buka Galeri Media</span>
             </button>
 
             {/* Tombol Kode Apps Script */}
@@ -457,7 +457,7 @@ export const AdminGoogleAppsScriptTab: React.FC<AdminGoogleAppsScriptTabProps> =
                 rel="noopener noreferrer"
                 className="text-slate-600 hover:underline flex items-center gap-1"
               >
-                <span>Buka Google Drive</span>
+                <span>Buka File Asli</span>
                 <ExternalLink className="w-3 h-3" />
               </a>
             </div>
@@ -473,7 +473,7 @@ export const AdminGoogleAppsScriptTab: React.FC<AdminGoogleAppsScriptTabProps> =
           // If selected in tester tab, we can show it as a selected preview
           setIsGalleryOpen(false);
         }}
-        title="Penyimpanan Gambar Google Drive (Galeri Apps Script)"
+        title="Galeri Media Cloud"
       />
 
       {/* Modal Kode Sumber Google Apps Script */}
