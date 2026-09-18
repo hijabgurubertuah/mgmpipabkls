@@ -8,7 +8,6 @@ import {
   ShieldCheck,
   Settings,
   Search,
-  GraduationCap,
   RefreshCw,
   RotateCcw,
 } from 'lucide-react';
@@ -285,29 +284,6 @@ export const Navbar: React.FC<NavbarProps> = ({
               <Search className="w-5 h-5" />
             </a>
 
-            {/* Dynamic PPDB Button if enabled */}
-            {config.ppdb?.enabled === true && (
-              <a
-                href={config.ppdb?.buttonLink || '#berita'}
-                target={config.ppdb?.openInNewTab ? '_blank' : undefined}
-                rel={config.ppdb?.openInNewTab ? 'noopener noreferrer' : undefined}
-                onClick={(e) => {
-                  const link = config.ppdb?.buttonLink || '#berita';
-                  if (link.startsWith('#')) {
-                    e.preventDefault();
-                    handleNavClick(link);
-                  }
-                }}
-                style={btnBg ? { backgroundColor: btnBg, color: btnText || '#ffffff' } : undefined}
-                className={`inline-flex items-center gap-2 text-sm font-bold px-4 py-2.5 rounded-lg shadow-sm hover:shadow transition-all cursor-pointer ${
-                  !btnBg ? 'bg-blue-700 hover:bg-blue-800 text-white' : ''
-                }`}
-              >
-                <GraduationCap className="w-4 h-4" />
-                <span>{config.ppdb?.buttonLabel || 'Info PPDB'}</span>
-              </a>
-            )}
-
             {/* Direct 1-Click Hard Reset & Clear Cache Button (Right beside Settings) */}
             <button
               id="btn-navbar-refresh"
@@ -419,27 +395,6 @@ export const Navbar: React.FC<NavbarProps> = ({
               </a>
             );
           })}
-
-          {config.ppdb?.enabled === true && (
-            <div className="pt-2 space-y-2">
-              <a
-                href={config.ppdb?.buttonLink || '#berita'}
-                target={config.ppdb?.openInNewTab ? '_blank' : undefined}
-                rel={config.ppdb?.openInNewTab ? 'noopener noreferrer' : undefined}
-                onClick={(e) => {
-                  const link = config.ppdb?.buttonLink || '#berita';
-                  if (link.startsWith('#')) {
-                    e.preventDefault();
-                    handleNavClick(link);
-                  }
-                }}
-                className="flex items-center justify-center gap-2 w-full bg-blue-700 text-white font-bold py-2.5 rounded-lg text-center text-sm"
-              >
-                <GraduationCap className="w-4 h-4" />
-                <span>{config.ppdb?.buttonLabel || 'Info PPDB'}</span>
-              </a>
-            </div>
-          )}
 
           {/* Login Admin Menu Entry at Bottom of Mobile Menu */}
           <div className="pt-3 border-t border-slate-100">

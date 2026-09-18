@@ -64,7 +64,7 @@ export interface SchoolIdentity {
   name: string;
   shortName?: string;
   tagline: string;
-  npsn: string;
+  npsn?: string;
   akreditasi: string;
   logoUrl: string;
   faviconUrl: string;
@@ -241,19 +241,6 @@ export interface FooterConfig {
   copyright: string;
 }
 
-export interface PPDBConfig {
-  enabled: boolean;
-  buttonLabel: string;
-  buttonLink: string;
-  openInNewTab: boolean;
-  academicYear: string;
-  statusText: string;
-  badgeText?: string;
-  announcement?: string;
-  contactPerson?: string;
-  brochureUrl?: string;
-}
-
 export interface GoogleAppsScriptConfig {
   enabled: boolean;
   webAppUrl: string;
@@ -280,7 +267,6 @@ export interface SchoolConfig {
   layoutSections: LayoutSections;
   mobileBottomNav?: MobileBottomNavConfig;
   principal: PrincipalConfig;
-  ppdb?: PPDBConfig;
   embeds: EmbedsConfig;
   facilities: FacilityItem[];
   extracurriculars: ExtracurricularItem[];

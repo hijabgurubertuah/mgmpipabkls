@@ -763,7 +763,7 @@ export const AdminPostsTab: React.FC<AdminPostsTabProps> = ({
                     required
                     value={title}
                     onChange={(e) => setTitle(e.target.value)}
-                    placeholder="Contoh: Aplikasi Kelulusan Siswa / Formulir PPDB / Sistem Informasi..."
+                    placeholder="Contoh: Workshop Pembelajaran IPA / Modul Ajar / Pengumuman MGMP..."
                     className="w-full px-4 py-2.5 rounded-xl border border-slate-300 text-sm focus:ring-2 focus:ring-purple-600 focus:outline-none font-semibold bg-white"
                   />
                 </div>

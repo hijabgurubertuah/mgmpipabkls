@@ -71,9 +71,11 @@ export const FooterSection: React.FC<FooterSectionProps> = ({ config }) => {
                 <h3 className="text-xl font-bold text-white tracking-tight leading-tight">
                   {identity.name}
                 </h3>
-                <p className="text-xs text-blue-400 font-medium">
-                  {identity.npsn?.startsWith('MGMP') ? `Kode Reg: ${identity.npsn}` : `NPSN/Kode: ${identity.npsn}`}
-                </p>
+                {(identity.tagline || identity.akreditasi) && (
+                  <p className="text-xs text-blue-400 font-medium">
+                    {identity.tagline || identity.akreditasi}
+                  </p>
+                )}
               </div>
             </div>
 

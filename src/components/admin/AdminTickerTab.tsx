@@ -56,7 +56,6 @@ export const AdminTickerTab: React.FC<AdminTickerTabProps> = ({ config, articles
   const generateAccreditationTemplate = () => {
     const parts: string[] = [];
     if (identity.akreditasi) parts.push(`[AKREDITASI] Status: ${identity.akreditasi}`);
-    if (identity.npsn) parts.push(`[NPSN] Nomor Pokok / Registrasi: ${identity.npsn}`);
     if (identity.name) parts.push(`[LEMBAGA] ${identity.name}`);
     return parts.length > 0 ? parts.join(' • ') : '';
   };

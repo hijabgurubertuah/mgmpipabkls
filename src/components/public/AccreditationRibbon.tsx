@@ -10,7 +10,7 @@ export const AccreditationRibbon: React.FC<AccreditationRibbonProps> = ({ config
   const { identity } = config;
 
   const customText = identity.accreditationTickerText?.trim();
-  const hasContent = Boolean(customText || identity.akreditasi || identity.npsn);
+  const hasContent = Boolean(customText || identity.akreditasi);
 
   if (identity.accreditationTickerEnabled === false || !hasContent) {
     return null;
@@ -59,12 +59,6 @@ export const AccreditationRibbon: React.FC<AccreditationRibbonProps> = ({ config
       tickerItems.push({
         badge: 'AKREDITASI',
         text: `Status: ${identity.akreditasi}`,
-      });
-    }
-    if (identity.npsn) {
-      tickerItems.push({
-        badge: 'NPSN',
-        text: `Nomor Registrasi / NPSN: ${identity.npsn}`,
       });
     }
     if (identity.name) {

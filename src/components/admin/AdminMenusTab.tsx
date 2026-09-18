@@ -7,7 +7,6 @@ import {
   Pencil,
   Check,
   X,
-  GraduationCap,
   GripVertical,
   Link2,
   FolderTree,
@@ -328,41 +327,6 @@ export const AdminMenusTab: React.FC<AdminMenusTabProps> = ({ config, onChange }
             {navMenus.length}
           </span>
         </div>
-      </div>
-
-      {/* PPDB Toggle */}
-      <div className="p-3.5 bg-slate-50 border border-slate-200 rounded-xl flex items-center justify-between gap-3">
-        <div className="flex items-center gap-2.5">
-          <GraduationCap className="w-4 h-4 text-blue-600" />
-          <span className="text-xs font-bold text-slate-800">Tombol PPDB</span>
-        </div>
-
-        <button
-          type="button"
-          onClick={() =>
-            onChange({
-              ...config,
-              ppdb: {
-                ...(config.ppdb || {
-                  enabled: true,
-                  buttonLabel: 'Info PPDB 2026',
-                  buttonLink: '#berita',
-                  openInNewTab: false,
-                  academicYear: '2026/2027',
-                  statusText: 'Pendaftaran Dibuka',
-                }),
-                enabled: config.ppdb?.enabled === false ? true : false,
-              },
-            })
-          }
-          className={`px-3 py-1 rounded-lg text-xs font-bold cursor-pointer transition-colors ${
-            config.ppdb?.enabled !== false
-              ? 'bg-emerald-100 text-emerald-800 border border-emerald-300'
-              : 'bg-slate-200 text-slate-700'
-          }`}
-        >
-          {config.ppdb?.enabled !== false ? 'Aktif' : 'Nonaktif'}
-        </button>
       </div>
 
       {/* Live Navbar Container with Fast Responsive Tap & Drag Reordering */}

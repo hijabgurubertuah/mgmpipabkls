@@ -143,18 +143,6 @@ export function normalizeSchoolConfig(raw: Partial<SchoolConfig> | null | undefi
     sanitizedRaw.footer = f;
   }
 
-  if (sanitizedRaw.ppdb) {
-    const p = { ...sanitizedRaw.ppdb };
-    if (!p.buttonLabel || p.buttonLabel === 'Info PPDB 2026') {
-      p.buttonLabel = DEFAULT_SCHOOL_CONFIG.ppdb.buttonLabel;
-      p.badgeText = DEFAULT_SCHOOL_CONFIG.ppdb.badgeText;
-      p.statusText = DEFAULT_SCHOOL_CONFIG.ppdb.statusText;
-      p.announcement = DEFAULT_SCHOOL_CONFIG.ppdb.announcement;
-      p.contactPerson = DEFAULT_SCHOOL_CONFIG.ppdb.contactPerson;
-    }
-    sanitizedRaw.ppdb = p;
-  }
-
   return {
     ...DEFAULT_SCHOOL_CONFIG,
     ...sanitizedRaw,
@@ -165,7 +153,6 @@ export function normalizeSchoolConfig(raw: Partial<SchoolConfig> | null | undefi
     mobileBottomNav: { ...DEFAULT_SCHOOL_CONFIG.mobileBottomNav, ...(sanitizedRaw.mobileBottomNav || {}) },
     themeConfig: { ...DEFAULT_SCHOOL_CONFIG.themeConfig, ...(sanitizedRaw.themeConfig || {}) },
     principal: { ...DEFAULT_SCHOOL_CONFIG.principal, ...(sanitizedRaw.principal || {}) },
-    ppdb: { ...DEFAULT_SCHOOL_CONFIG.ppdb, ...(sanitizedRaw.ppdb || {}) },
     embeds: { ...DEFAULT_SCHOOL_CONFIG.embeds, ...(sanitizedRaw.embeds || {}) },
     footer: { ...DEFAULT_SCHOOL_CONFIG.footer, ...(sanitizedRaw.footer || {}) },
     googleAppsScript: (() => {
@@ -596,11 +583,6 @@ export async function saveSchoolTabConfig(tab: string, config: SchoolConfig): Pr
     case 'menus':
       tabPayload = {
         navMenus: config.navMenus,
-      };
-      break;
-    case 'ppdb':
-      tabPayload = {
-        ppdb: config.ppdb,
       };
       break;
     case 'agenda':

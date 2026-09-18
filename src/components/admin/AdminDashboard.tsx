@@ -22,7 +22,6 @@ import {
   Menu,
   Calendar,
   Building2,
-  GraduationCap,
   FileSpreadsheet,
   CloudDownload,
   RefreshCw,
@@ -36,7 +35,6 @@ import { AdminBannerTab } from './AdminBannerTab';
 import { AdminThemeTab } from './AdminThemeTab';
 import { AdminTickerTab } from './AdminTickerTab';
 import { AdminMenusTab } from './AdminMenusTab';
-import { AdminPPDBTab } from './AdminPPDBTab';
 import { AdminPostsTab } from './AdminPostsTab';
 import { AdminCommentsTab } from './AdminCommentsTab';
 import { AdminAgendaTab } from './AdminAgendaTab';
@@ -73,7 +71,6 @@ export type AdminTab =
   | 'theme'
   | 'ticker'
   | 'menus'
-  | 'ppdb'
   | 'posts'
   | 'comments'
   | 'agenda'
@@ -208,7 +205,6 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
     { id: 'posts', label: 'Postingan Berita', icon: <FileText className="w-4 h-4" /> },
     { id: 'comments', label: 'Pengelola Komentar', icon: <MessageSquare className="w-4 h-4" /> },
     { id: 'agenda', label: 'Agenda & Jadwal', icon: <Calendar className="w-4 h-4" /> },
-    { id: 'ppdb', label: 'PPDB Online', icon: <GraduationCap className="w-4 h-4" /> },
     { id: 'principal', label: 'Sambutan Pimpinan', icon: <Award className="w-4 h-4" /> },
   ];
 
@@ -894,10 +890,6 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
 
           {activeTab === 'menus' && (
             <AdminMenusTab config={config} onChange={handleConfigUpdate} />
-          )}
-
-          {activeTab === 'ppdb' && (
-            <AdminPPDBTab config={config} onChange={handleConfigUpdate} />
           )}
 
           {/* Keep AdminPostsTab mounted so in-progress post editing/drafting is preserved when switching tabs */}

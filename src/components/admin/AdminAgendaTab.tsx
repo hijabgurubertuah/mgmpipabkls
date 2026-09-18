@@ -45,7 +45,7 @@ export const AdminAgendaTab: React.FC<AdminAgendaTabProps> = ({ config, onChange
   const categories = [
     'Akademik',
     'Kesiswaan',
-    'PPDB',
+    'Pelatihan',
     'Ujian',
     'Libur',
     'Karya Siswa',
