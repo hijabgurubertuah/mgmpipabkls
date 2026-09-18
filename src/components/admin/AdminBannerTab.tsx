@@ -1,6 +1,6 @@
 import React from 'react';
 import { SchoolConfig } from '../../types';
-import { Sparkles, Image as ImageIcon, Sliders, Plus, Trash2, Layers, AlignLeft, AlignCenter, AlignRight, MoveVertical, Play } from 'lucide-react';
+import { Sparkles, Image as ImageIcon, Sliders, Plus, Trash2, Layers, AlignLeft, AlignCenter, AlignRight, MoveVertical, Play, Palette } from 'lucide-react';
 import { ImageUploadButton } from './ImageUploadButton';
 import { AutoResizeTextarea } from '../common/AutoResizeTextarea';
 
@@ -10,7 +10,7 @@ interface AdminBannerTabProps {
 }
 
 export const AdminBannerTab: React.FC<AdminBannerTabProps> = ({ config, onChange }) => {
-  const { header } = config;
+  const { header, themeConfig } = config;
 
   const updateHeader = (key: keyof typeof header, value: any) => {
     onChange({
@@ -19,6 +19,16 @@ export const AdminBannerTab: React.FC<AdminBannerTabProps> = ({ config, onChange
         ...header,
         [key]: value,
       },
+    });
+  };
+
+  const updateTheme = (updatedFields: Partial<NonNullable<typeof themeConfig>>) => {
+    onChange({
+      ...config,
+      themeConfig: {
+        ...(config.themeConfig || {}),
+        ...updatedFields,
+      } as any,
     });
   };
 
@@ -244,6 +254,86 @@ export const AdminBannerTab: React.FC<AdminBannerTabProps> = ({ config, onChange
               )}
             </div>
           )}
+        </div>
+
+        {/* Cakupan & Gaya Warna Cover Banner (Separuh / Penuh) */}
+        <div className="space-y-4 pt-3 border-t border-slate-100">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+            <div>
+              <h4 className="text-xs font-bold text-slate-800 flex items-center gap-1.5">
+                <Palette className="w-3.5 h-3.5 text-blue-600" />
+                <span>Cakupan &amp; Gaya Warna Cover Banner (Overlay Separuh / Penuh)</span>
+              </h4>
+              <p className="text-[11px] text-slate-500">
+                Pilih apakah warna tema menutupi separuh layar banner (agar foto asli tetap jernih &amp; terang) atau penuh.
+              </p>
+            </div>
+            <span className="text-xs font-mono font-bold text-blue-600 bg-blue-50 px-2.5 py-1 rounded-lg border border-blue-200 self-start sm:self-auto">
+              {(themeConfig?.bannerOverlayStyle || 'half-left') === 'half-left' ? 'Separuh Kiri (50%)' :
+               themeConfig?.bannerOverlayStyle === 'half-right' ? 'Separuh Kanan (50%)' :
+               themeConfig?.bannerOverlayStyle === 'half-bottom' ? 'Separuh Bawah' :
+               themeConfig?.bannerOverlayStyle === 'split-sharp' ? 'Split Tegas 50:50' :
+               themeConfig?.bannerOverlayStyle === 'diagonal' ? 'Diagonal 115°' : 'Penuh (100%)'}
+            </span>
+          </div>
+
+          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-2.5">
+            {[
+              { id: 'half-left', label: 'Separuh Kiri', desc: '50% Sisi Teks (Foto Kanan Jernih)' },
+              { id: 'half-right', label: 'Separuh Kanan', desc: '50% Sisi Kanan' },
+              { id: 'half-bottom', label: 'Separuh Bawah', desc: 'Gradasi 50% Bawah' },
+              { id: 'split-sharp', label: 'Split 50:50', desc: 'Garis Tegas Modern' },
+              { id: 'diagonal', label: 'Diagonal', desc: 'Sudut Miring 115°' },
+              { id: 'full', label: 'Penuh (100%)', desc: 'Merata Seluruh Banner' },
+            ].map((st) => {
+              const currentStyle = themeConfig?.bannerOverlayStyle || 'half-left';
+              const isSelected = currentStyle === st.id;
+              return (
+                <button
+                  key={st.id}
+                  type="button"
+                  onClick={() => updateTheme({ bannerOverlayStyle: st.id as any })}
+                  className={`p-2.5 rounded-xl border text-left flex flex-col justify-between transition-all cursor-pointer ${
+                    isSelected
+                      ? 'bg-blue-50/80 border-blue-600 ring-2 ring-blue-600/20 shadow-xs'
+                      : 'bg-slate-50 border-slate-200 hover:bg-slate-100 hover:border-slate-300'
+                  }`}
+                >
+                  <div className="flex items-center justify-between w-full mb-1">
+                    <span className={`text-xs font-bold ${isSelected ? 'text-blue-700' : 'text-slate-800'}`}>
+                      {st.label}
+                    </span>
+                    <div className={`w-2 h-2 rounded-full ${isSelected ? 'bg-blue-600' : 'bg-slate-300'}`} />
+                  </div>
+                  <span className="text-[10px] text-slate-500 leading-tight">
+                    {st.desc}
+                  </span>
+                </button>
+              );
+            })}
+          </div>
+
+          {/* Slider Kegelapan Banner */}
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 p-3 bg-slate-50 rounded-xl border border-slate-200">
+            <div className="flex items-center gap-2">
+              <span className="text-xs font-bold text-slate-700">Tingkat Kegelapan Gradasi:</span>
+              <span className="text-xs font-mono font-bold text-blue-600 bg-white px-2 py-0.5 rounded border border-slate-200">
+                {typeof themeConfig?.bannerOverlayOpacity === 'number' ? themeConfig.bannerOverlayOpacity : 45}%
+              </span>
+            </div>
+            <div className="flex items-center gap-3 w-full sm:w-64">
+              <span className="text-[10px] text-slate-400 font-bold">Terang</span>
+              <input
+                type="range"
+                min="0"
+                max="100"
+                value={typeof themeConfig?.bannerOverlayOpacity === 'number' ? themeConfig.bannerOverlayOpacity : 45}
+                onChange={(e) => updateTheme({ bannerOverlayOpacity: parseInt(e.target.value, 10) })}
+                className="w-full accent-blue-600 cursor-pointer h-2 bg-slate-200 rounded-lg"
+              />
+              <span className="text-[10px] text-slate-400 font-bold">Gelap</span>
+            </div>
+          </div>
         </div>
 
         {/* Tombol Utama & Sekunder */}

@@ -52,6 +52,7 @@ export interface ThemeConfig {
   footerBgColor?: string;
   bannerOverlayColor?: string;
   bannerOverlayOpacity?: number;
+  bannerOverlayStyle?: 'full' | 'half-left' | 'half-right' | 'half-bottom' | 'split-sharp' | 'diagonal';
   cardStrokeColor?: string;
   cardStrokeWidth?: number;
   statCardUseGradient?: boolean;

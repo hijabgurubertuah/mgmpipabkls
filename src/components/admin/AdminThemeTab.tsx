@@ -70,6 +70,7 @@ export const AdminThemeTab: React.FC<AdminThemeTabProps> = ({ config, onChange }
   const activeAccent = theme.accentColor || '#f59e0b';
   const activeBannerColor = theme.bannerOverlayColor || '#0f172a';
   const activeBannerOpacity = typeof theme.bannerOverlayOpacity === 'number' ? theme.bannerOverlayOpacity : 45;
+  const activeBannerOverlayStyle = theme.bannerOverlayStyle || 'half-left';
   const activeCardStroke = theme.cardStrokeColor || '#b45309';
   const activeCardStrokeWidth = typeof theme.cardStrokeWidth === 'number' ? theme.cardStrokeWidth : 2;
   const statCardUseGradient = typeof theme.statCardUseGradient === 'boolean' ? theme.statCardUseGradient : false;
@@ -232,6 +233,59 @@ export const AdminThemeTab: React.FC<AdminThemeTabProps> = ({ config, onChange }
             onChange={item.onChange}
           />
         ))}
+
+        {/* Pengaturan Cakupan & Gaya Warna Cover Banner (Separuh / Penuh) */}
+        <div className="flex flex-col gap-3.5 p-4 bg-white rounded-xl border border-slate-200 hover:border-slate-300 transition-colors shadow-2xs col-span-1 lg:col-span-2">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 pb-2 border-b border-slate-100">
+            <div className="space-y-0.5">
+              <span className="text-xs sm:text-sm font-bold text-slate-800 tracking-tight block">
+                Cakupan &amp; Gaya Warna Cover Banner (Overlay)
+              </span>
+              <p className="text-[11px] text-slate-500">
+                Pilih apakah warna tema menutupi separuh layar banner (agar foto asli tetap jernih &amp; terang) atau penuh.
+              </p>
+            </div>
+            <span className="text-xs font-mono font-bold text-blue-600 bg-blue-50 px-2.5 py-1 rounded-lg border border-blue-200 self-start sm:self-auto">
+              {activeBannerOverlayStyle === 'half-left' ? 'Separuh Kiri (50%)' :
+               activeBannerOverlayStyle === 'half-right' ? 'Separuh Kanan (50%)' :
+               activeBannerOverlayStyle === 'half-bottom' ? 'Separuh Bawah' :
+               activeBannerOverlayStyle === 'split-sharp' ? 'Split Tegas 50:50' :
+               activeBannerOverlayStyle === 'diagonal' ? 'Diagonal 115°' : 'Penuh (100%)'}
+            </span>
+          </div>
+
+          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-2.5 pt-1">
+            {[
+              { id: 'half-left', label: 'Separuh Kiri', desc: '50% Sisi Teks (Foto Kanan Jernih)' },
+              { id: 'half-right', label: 'Separuh Kanan', desc: '50% Sisi Kanan' },
+              { id: 'half-bottom', label: 'Separuh Bawah', desc: 'Gradasi 50% Bawah' },
+              { id: 'split-sharp', label: 'Split 50:50', desc: 'Garis Tegas Modern' },
+              { id: 'diagonal', label: 'Diagonal', desc: 'Sudut Miring 115°' },
+              { id: 'full', label: 'Penuh (100%)', desc: 'Merata Seluruh Banner' },
+            ].map((st) => (
+              <button
+                key={st.id}
+                type="button"
+                onClick={() => updateTheme({ bannerOverlayStyle: st.id as any })}
+                className={`p-2.5 rounded-xl border text-left flex flex-col justify-between transition-all cursor-pointer ${
+                  activeBannerOverlayStyle === st.id
+                    ? 'bg-blue-50/80 border-blue-600 ring-2 ring-blue-600/20 shadow-xs'
+                    : 'bg-slate-50 border-slate-200 hover:bg-slate-100 hover:border-slate-300'
+                }`}
+              >
+                <div className="flex items-center justify-between w-full mb-1">
+                  <span className={`text-xs font-bold ${activeBannerOverlayStyle === st.id ? 'text-blue-700' : 'text-slate-800'}`}>
+                    {st.label}
+                  </span>
+                  <div className={`w-2 h-2 rounded-full ${activeBannerOverlayStyle === st.id ? 'bg-blue-600' : 'bg-slate-300'}`} />
+                </div>
+                <span className="text-[10px] text-slate-500 leading-tight">
+                  {st.desc}
+                </span>
+              </button>
+            ))}
+          </div>
+        </div>
 
         {/* Pengaturan Kegelapan Gradasi Banner */}
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 p-3.5 bg-white rounded-xl border border-slate-200 hover:border-slate-300 transition-colors shadow-2xs col-span-1 lg:col-span-2">

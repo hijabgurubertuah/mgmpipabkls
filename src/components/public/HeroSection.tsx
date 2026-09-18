@@ -65,6 +65,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ config }) => {
   const bannerColor = themeConfig?.bannerOverlayColor || '#020617';
   const bannerOpacity = typeof themeConfig?.bannerOverlayOpacity === 'number' ? themeConfig.bannerOverlayOpacity : 45;
   const opacityRatio = Math.max(0, Math.min(100, bannerOpacity)) / 100;
+  const overlayStyle = themeConfig?.bannerOverlayStyle || 'half-left';
 
   const hexToRgba = (hex: string, alpha: number) => {
     let c = (hex || '#020617').replace('#', '');
@@ -73,6 +74,28 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ config }) => {
     const g = parseInt(c.substring(2, 4), 16) || 0;
     const b = parseInt(c.substring(4, 6), 16) || 0;
     return `rgba(${r}, ${g}, ${b}, ${Math.max(0, Math.min(1, alpha))})`;
+  };
+
+  const getOverlayBackground = () => {
+    const highA = Math.min(1, opacityRatio * 1.35);
+    const midA = Math.min(1, opacityRatio * 0.95);
+    const lowA = Math.min(1, opacityRatio * 0.35);
+
+    switch (overlayStyle) {
+      case 'half-left':
+        return `linear-gradient(to right, ${hexToRgba(bannerColor, highA)} 0%, ${hexToRgba(bannerColor, midA)} 38%, ${hexToRgba(bannerColor, lowA)} 58%, transparent 78%, transparent 100%)`;
+      case 'half-right':
+        return `linear-gradient(to left, ${hexToRgba(bannerColor, highA)} 0%, ${hexToRgba(bannerColor, midA)} 38%, ${hexToRgba(bannerColor, lowA)} 58%, transparent 78%, transparent 100%)`;
+      case 'half-bottom':
+        return `linear-gradient(to top, ${hexToRgba(bannerColor, highA)} 0%, ${hexToRgba(bannerColor, midA)} 45%, transparent 75%)`;
+      case 'split-sharp':
+        return `linear-gradient(to right, ${hexToRgba(bannerColor, highA)} 0%, ${hexToRgba(bannerColor, highA)} 50%, transparent 50%, transparent 100%)`;
+      case 'diagonal':
+        return `linear-gradient(115deg, ${hexToRgba(bannerColor, highA)} 0%, ${hexToRgba(bannerColor, midA)} 48%, transparent 52%, transparent 100%)`;
+      case 'full':
+      default:
+        return `linear-gradient(to right, ${hexToRgba(bannerColor, Math.min(1, opacityRatio * 1.15))}, ${hexToRgba(bannerColor, Math.min(1, opacityRatio * 0.75))})`;
+    }
   };
 
   // Text alignment classes
@@ -84,20 +107,20 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ config }) => {
       ? 'text-right items-end ml-auto'
       : 'text-left items-start mr-auto';
 
-  // Vertical position classes
+  // Vertical position classes (diatur naik sedikit agar proporsional dan tidak tertabrak kartu)
   const verticalPosition = header.verticalPosition || 'center';
   const verticalClasses =
     verticalPosition === 'top'
-      ? 'pt-10 sm:pt-16 pb-24 sm:pb-32'
+      ? 'pt-6 sm:pt-8 md:pt-10 pb-28 sm:pb-36'
       : verticalPosition === 'bottom'
-      ? 'pt-24 sm:pt-36 pb-24 sm:pb-32'
-      : 'py-16 sm:py-24 md:py-28';
+      ? 'pt-16 sm:pt-22 pb-20 sm:pb-28'
+      : 'pt-8 sm:pt-12 md:pt-14 pb-24 sm:pb-32 md:pb-36';
 
   return (
     <div id="beranda" className="relative text-white w-full max-w-full overflow-hidden">
       
       {/* Background Hero Image / Carousel with Overlays */}
-      <div className="relative overflow-hidden bg-slate-950 min-h-[420px] sm:min-h-[520px] flex flex-col justify-center">
+      <div className="relative overflow-hidden bg-slate-950 min-h-[440px] sm:min-h-[520px] flex flex-col justify-center">
         <div className="absolute inset-0 z-0">
           {carouselImages.length > 0 ? (
             carouselImages.map((imgUrl, index) => (
@@ -119,40 +142,66 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ config }) => {
             <div className="absolute inset-0 bg-slate-900" />
           )}
 
-          {/* Pelindung Kontras Teks */}
-          <div className="absolute inset-0 pointer-events-none bg-gradient-to-r from-slate-950/90 via-slate-950/70 to-slate-950/40 z-20" />
-          <div className="absolute inset-0 pointer-events-none bg-gradient-to-t from-slate-950/95 via-slate-950/40 to-transparent z-20" />
+          {/* Pelindung Kontras Teks (Adaptif terhadap style separuh/penuh) */}
+          {overlayStyle === 'half-left' || overlayStyle === 'split-sharp' || overlayStyle === 'diagonal' ? (
+            <>
+              <div className="absolute inset-y-0 left-0 w-full sm:w-3/4 md:w-3/5 pointer-events-none bg-gradient-to-r from-slate-950/90 via-slate-950/50 to-transparent z-20" />
+              <div className="absolute inset-x-0 bottom-0 h-1/2 pointer-events-none bg-gradient-to-t from-slate-950/80 via-transparent to-transparent z-20" />
+            </>
+          ) : overlayStyle === 'half-right' ? (
+            <>
+              <div className="absolute inset-y-0 right-0 w-full sm:w-3/4 md:w-3/5 pointer-events-none bg-gradient-to-l from-slate-950/90 via-slate-950/50 to-transparent z-20" />
+              <div className="absolute inset-x-0 bottom-0 h-1/2 pointer-events-none bg-gradient-to-t from-slate-950/80 via-transparent to-transparent z-20" />
+            </>
+          ) : overlayStyle === 'half-bottom' ? (
+            <div className="absolute inset-x-0 bottom-0 h-3/4 pointer-events-none bg-gradient-to-t from-slate-950/95 via-slate-950/60 to-transparent z-20" />
+          ) : (
+            <>
+              <div className="absolute inset-0 pointer-events-none bg-gradient-to-r from-slate-950/90 via-slate-950/70 to-slate-950/40 z-20" />
+              <div className="absolute inset-0 pointer-events-none bg-gradient-to-t from-slate-950/95 via-slate-950/40 to-transparent z-20" />
+            </>
+          )}
 
           {/* Configurable Gradients Overlay dari Pengaturan Tema Admin */}
           <div
             className="absolute inset-0 pointer-events-none transition-all duration-300 z-20"
             style={{
-              background: `linear-gradient(to right, ${hexToRgba(bannerColor, Math.min(1, opacityRatio * 1.15))}, ${hexToRgba(bannerColor, Math.min(1, opacityRatio * 0.75))})`,
+              background: getOverlayBackground(),
             }}
           />
         </div>
 
         {/* Hero Content Area */}
-        <div className={`relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full ${verticalClasses} ${hasQuickStats ? 'pb-28 sm:pb-32 md:pb-28' : ''}`}>
-          <div className={`max-w-3xl space-y-4 flex flex-col ${alignClasses}`}>
+        <div className={`relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full ${verticalClasses} ${hasQuickStats ? 'pb-28 sm:pb-36 md:pb-36' : ''}`}>
+          <div className={`max-w-3xl space-y-4 sm:space-y-5 flex flex-col ${alignClasses} -translate-y-2 sm:-translate-y-4 md:-translate-y-5`}>
             
-            {/* Main Title */}
-            <h1 className="text-2xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-white leading-tight">
+            {/* Main Title dengan Thin & Crisp Professional Text Shadow */}
+            <h1
+              className="text-2xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-white leading-tight"
+              style={{
+                textShadow: '0 1px 2px rgba(0,0,0,0.95), 0 2px 4px rgba(0,0,0,0.7)',
+              }}
+            >
               {header.heroTitle}
             </h1>
 
-            {/* Subtitle */}
-            <p className="text-sm sm:text-base text-slate-200 font-normal leading-relaxed max-w-2xl">
+            {/* Subtitle dengan Thin Tight Shadow */}
+            <p
+              className="text-sm sm:text-base text-slate-100 font-medium leading-relaxed max-w-2xl"
+              style={{
+                textShadow: '0 1px 2px rgba(0,0,0,0.9)',
+              }}
+            >
               {header.heroSubtitle}
             </p>
 
             {/* CTA Buttons */}
-            <div className="pt-2 mb-2 flex flex-wrap items-center gap-3 relative z-10">
+            <div className="pt-2 sm:pt-3 mb-2 flex flex-wrap items-center gap-3.5 relative z-10">
               {header.showPrimaryButton !== false && header.heroCtaText && (
                 <button
                   type="button"
                   onClick={() => handleScrollTo(header.heroCtaLink)}
-                  className="btn-theme-primary inline-flex items-center gap-2 font-bold px-5 py-3 rounded-xl shadow-lg transition-all text-xs sm:text-sm cursor-pointer transform hover:-translate-y-0.5"
+                  className="btn-theme-primary inline-flex items-center gap-2 font-bold px-5 py-3 rounded-xl shadow-[0_4px_16px_rgba(0,0,0,0.35)] hover:shadow-[0_8px_24px_rgba(0,0,0,0.45)] transition-all text-xs sm:text-sm cursor-pointer transform hover:-translate-y-0.5"
                 >
                   <span>{header.heroCtaText}</span>
                   <ChevronRight className="w-4 h-4" />
@@ -163,7 +212,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ config }) => {
                 <button
                   type="button"
                   onClick={() => handleScrollTo(header.secondaryCtaLink)}
-                  className="inline-flex items-center gap-2 bg-slate-900/80 hover:bg-slate-800 text-slate-200 hover:text-white border border-slate-700 hover:border-slate-500 font-semibold px-4 py-3 rounded-xl backdrop-blur-sm transition-all text-xs sm:text-sm cursor-pointer"
+                  className="inline-flex items-center gap-2 bg-slate-900/80 hover:bg-slate-800 text-slate-100 hover:text-white border border-slate-700/80 hover:border-slate-500 font-semibold px-4 py-3 rounded-xl backdrop-blur-md shadow-[0_4px_14px_rgba(0,0,0,0.35)] hover:shadow-[0_8px_20px_rgba(0,0,0,0.45)] transition-all text-xs sm:text-sm cursor-pointer"
                 >
                   <PlayCircle className="w-4 h-4 text-theme-primary" />
                   <span>{header.secondaryCtaText}</span>
@@ -180,8 +229,8 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ config }) => {
                     type="button"
                     onClick={() => setCurrentSlide(idx)}
                     style={idx === currentSlide ? { backgroundColor: 'var(--primary-color, #2563eb)' } : undefined}
-                    className={`h-2 rounded-full transition-all cursor-pointer ${
-                      idx === currentSlide ? 'w-8' : 'w-2 bg-white/50 hover:bg-white'
+                    className={`h-2 rounded-full transition-all cursor-pointer drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)] ${
+                      idx === currentSlide ? 'w-8' : 'w-2 bg-white/60 hover:bg-white'
                     }`}
                     aria-label={`Slide ${idx + 1}`}
                   />
