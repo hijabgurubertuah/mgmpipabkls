@@ -25,7 +25,7 @@ export const FooterSection: React.FC<FooterSectionProps> = ({ config }) => {
   const footerBg = themeConfig?.footerBgColor || themeConfig?.headerBgColor;
 
   // Real-time Visitor counter & active online users synced via Firebase Firestore
-  const [totalVisits, setTotalVisits] = useState<number>(15420);
+  const [totalVisits, setTotalVisits] = useState<number>(0);
   const [onlineUsers, setOnlineUsers] = useState<number>(1);
 
   useEffect(() => {

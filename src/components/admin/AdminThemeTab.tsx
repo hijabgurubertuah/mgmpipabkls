@@ -149,22 +149,76 @@ export const AdminThemeTab: React.FC<AdminThemeTabProps> = ({ config, onChange }
     <div className="space-y-6 animate-in fade-in duration-200">
       
       {/* Header & Reset Action */}
-      <div className="bg-white rounded-2xl p-5 border border-slate-200 shadow-xs flex items-center justify-between">
+      <div className="bg-white rounded-2xl p-5 border border-slate-200 shadow-xs flex flex-col sm:flex-row sm:items-center justify-between gap-3">
         <div className="flex items-center gap-2.5">
           <Palette className="w-5 h-5 text-blue-600 shrink-0" />
-          <h3 className="text-base font-extrabold text-slate-900">
-            Warna & Tema Website
-          </h3>
+          <div>
+            <h3 className="text-base font-extrabold text-slate-900">
+              Warna &amp; Tema Website
+            </h3>
+            <p className="text-xs text-slate-500">
+              Sesuaikan palet identitas visual, warna tombol, dan aksen secara seragam.
+            </p>
+          </div>
         </div>
 
         <button
           type="button"
           onClick={() => updateTheme(DEFAULT_THEME_CONFIG)}
-          className="text-xs text-blue-600 hover:text-blue-700 font-bold flex items-center gap-1.5 px-3 py-1.5 rounded-lg hover:bg-blue-50 transition-colors cursor-pointer"
+          className="text-xs text-blue-600 hover:text-blue-700 font-bold flex items-center gap-1.5 px-3 py-1.5 rounded-lg hover:bg-blue-50 transition-colors cursor-pointer self-start sm:self-auto"
         >
           <RotateCcw className="w-3.5 h-3.5" />
           <span>Reset Kebawaan</span>
         </button>
+      </div>
+
+      {/* Fitur Penyeragaman Warna Tombol (Uniform Button Colors) */}
+      <div className="bg-linear-to-r from-blue-50/90 via-indigo-50/70 to-slate-50 border border-blue-200/80 rounded-2xl p-4 sm:p-5 space-y-3 shadow-2xs">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+          <div className="space-y-1">
+            <div className="flex items-center gap-2">
+              <Sparkles className="w-4 h-4 text-blue-600" />
+              <h4 className="text-sm font-extrabold text-slate-900">
+                Penyeragaman Warna Tombol (Uniform Button Styling)
+              </h4>
+            </div>
+            <p className="text-xs text-slate-600 max-w-xl leading-relaxed">
+              Anda dapat mengatur warna tombol secara seragam di seluruh website (Banner Hero, Agenda, Berita, Dialog Modal, dan Formulir Komentar).
+            </p>
+          </div>
+
+          <button
+            type="button"
+            onClick={() => {
+              updateTheme({
+                buttonBgColor: activePrimary,
+                buttonTextColor: '#ffffff',
+                primaryHoverColor: activeHover || '#1d4ed8',
+              });
+            }}
+            style={{ backgroundColor: activePrimary, color: activeBtnText || '#ffffff' }}
+            className="inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl font-bold text-xs shadow-xs hover:opacity-95 active:scale-95 transition-all cursor-pointer shrink-0"
+            title="Terapkan warna tombol utama seragam dengan warna tema utama"
+          >
+            <Sparkles className="w-3.5 h-3.5" />
+            <span>Seragamkan Warna Tombol</span>
+          </button>
+        </div>
+
+        {/* Live Interactive Button Preview */}
+        <div className="pt-2 border-t border-blue-200/60 flex flex-wrap items-center gap-3">
+          <span className="text-xs font-semibold text-slate-600">Pratinjau Tombol:</span>
+          <button
+            type="button"
+            style={{ backgroundColor: activeBtnBg, color: activeBtnText }}
+            className="px-3.5 py-1.5 rounded-lg text-xs font-bold shadow-2xs transition-all pointer-events-none"
+          >
+            Tombol Utama
+          </button>
+          <span className="text-[11px] text-slate-500 font-mono">
+            Latar: {activeBtnBg} | Teks: {activeBtnText}
+          </span>
+        </div>
       </div>
 
       {/* Grid Kotak Warna Minimalis */}

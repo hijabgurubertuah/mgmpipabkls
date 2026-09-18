@@ -133,7 +133,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ config }) => {
         </div>
 
         {/* Hero Content Area */}
-        <div className={`relative z-30 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full ${verticalClasses} ${hasQuickStats ? 'pb-28 sm:pb-32 md:pb-28' : ''}`}>
+        <div className={`relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full ${verticalClasses} ${hasQuickStats ? 'pb-28 sm:pb-32 md:pb-28' : ''}`}>
           <div className={`max-w-3xl space-y-4 flex flex-col ${alignClasses}`}>
             
             {/* Main Title */}
@@ -147,7 +147,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ config }) => {
             </p>
 
             {/* CTA Buttons */}
-            <div className="pt-2 mb-2 flex flex-wrap items-center gap-3 relative z-30">
+            <div className="pt-2 mb-2 flex flex-wrap items-center gap-3 relative z-10">
               {header.showPrimaryButton !== false && header.heroCtaText && (
                 <button
                   type="button"
@@ -176,7 +176,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ config }) => {
 
             {/* Carousel Dots / Indicators if multiple slides */}
             {header.carouselEnabled && carouselImages.length > 1 && (
-              <div className="flex items-center gap-2 pt-3 z-30">
+              <div className="flex items-center gap-2 pt-3 z-10">
                 {carouselImages.map((_, idx) => (
                   <button
                     key={idx}
@@ -197,7 +197,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ config }) => {
 
       {/* Floating 4 Stat Cards */}
       {hasQuickStats && (
-        <div className="relative z-40 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 -translate-y-1/2 -mb-[74px] sm:-mb-[80px] md:-mb-8 lg:-mb-10">
+        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 -translate-y-1/2 -mb-[74px] sm:-mb-[80px] md:-mb-8 lg:-mb-10">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-5">
             {header.highlights.map((stat) => {
               const useGrad = !!themeConfig?.statCardUseGradient;

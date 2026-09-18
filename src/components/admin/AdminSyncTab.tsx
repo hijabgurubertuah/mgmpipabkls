@@ -8,6 +8,7 @@ import {
   forceRefreshFromFirebase,
 } from '../../lib/firebase';
 import { clearOfflineStorage } from '../../lib/offlineStorage';
+import { resetVisitorCounter, initRealtimeVisitorCounter } from '../../lib/analytics';
 import {
   signInWithGoogleDrive,
   signOutGoogleDrive,
@@ -41,6 +42,8 @@ import {
   Layers,
   RotateCcw,
   Check,
+  Users,
+  BarChart3,
 } from 'lucide-react';
 
 interface AdminSyncTabProps {
@@ -73,9 +76,10 @@ export const AdminSyncTab: React.FC<AdminSyncTabProps> = ({
   const [showResetModal, setShowResetModal] = useState(false);
   const [showSetDefaultModal, setShowSetDefaultModal] = useState(false);
   const [showClearCacheModal, setShowClearCacheModal] = useState(false);
+  const [showResetVisitorModal, setShowResetVisitorModal] = useState(false);
 
   // Lock body scroll when any modal is open
-  useBodyScrollLock(showResetModal || showSetDefaultModal || showClearCacheModal);
+  useBodyScrollLock(showResetModal || showSetDefaultModal || showClearCacheModal || showResetVisitorModal);
 
   // Password verification for reset
   const [resetPasswordInput, setResetPasswordInput] = useState('');
@@ -86,6 +90,42 @@ export const AdminSyncTab: React.FC<AdminSyncTabProps> = ({
   const [defaultPasswordInput, setDefaultPasswordInput] = useState('');
   const [defaultPasswordError, setDefaultPasswordError] = useState('');
   const [showDefaultPassword, setShowDefaultPassword] = useState(false);
+
+  // Visitor Counter Stats & Reset State
+  const [visitorStats, setVisitorStats] = useState<{ totalVisits: number; onlineUsers: number }>({
+    totalVisits: 0,
+    onlineUsers: 1,
+  });
+  const [targetVisitorInput, setTargetVisitorInput] = useState('0');
+  const [resettingVisitor, setResettingVisitor] = useState(false);
+
+  useEffect(() => {
+    const unsub = initRealtimeVisitorCounter((stats) => {
+      setVisitorStats(stats);
+    });
+    return () => unsub();
+  }, []);
+
+  const handleConfirmResetVisitor = async () => {
+    const targetNum = parseInt(targetVisitorInput, 10);
+    const safeCount = isNaN(targetNum) ? 0 : Math.max(0, targetNum);
+    setResettingVisitor(true);
+    try {
+      const success = await resetVisitorCounter(safeCount);
+      if (success) {
+        setVisitorStats((prev) => ({ ...prev, totalVisits: safeCount }));
+        setToastNotice({ type: 'success', message: `Jumlah pengunjung berhasil direset ke ${safeCount}` });
+        setShowResetVisitorModal(false);
+      } else {
+        setToastNotice({ type: 'error', message: 'Gagal mereset jumlah pengunjung' });
+      }
+    } catch {
+      setToastNotice({ type: 'error', message: 'Gagal mereset jumlah pengunjung' });
+    } finally {
+      setResettingVisitor(false);
+      setTimeout(() => setToastNotice(null), 1500);
+    }
+  };
 
   // Admin password change
   const [newPassword, setNewPassword] = useState(config.adminPassword || 'smpn1bks');
@@ -884,7 +924,106 @@ export const AdminSyncTab: React.FC<AdminSyncTabProps> = ({
             </button>
           </div>
         </div>
+
+        {/* Statistik Pengunjung & Reset Counter */}
+        <div className="bg-white rounded-2xl p-5 border border-slate-200 shadow-xs space-y-3 flex flex-col justify-between">
+          <div>
+            <div className="flex items-center justify-between">
+              <div className="flex items-center gap-2">
+                <span className="p-2 bg-blue-50 text-blue-700 rounded-xl">
+                  <Users className="w-4 h-4" />
+                </span>
+                <h4 className="text-sm font-bold text-slate-900">Statistik Pengunjung Website</h4>
+              </div>
+              <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-emerald-50 text-emerald-700 border border-emerald-200 flex items-center gap-1">
+                <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
+                Live Cloud
+              </span>
+            </div>
+            
+            <div className="grid grid-cols-2 gap-2 mt-3">
+              <div className="bg-slate-50 border border-slate-200/80 rounded-xl p-2.5 text-center">
+                <span className="text-[10px] uppercase font-bold text-slate-500 block">Total Kunjungan</span>
+                <span className="text-lg font-black text-slate-900 font-mono">
+                  {visitorStats.totalVisits.toLocaleString('id-ID')}
+                </span>
+              </div>
+              <div className="bg-slate-50 border border-slate-200/80 rounded-xl p-2.5 text-center">
+                <span className="text-[10px] uppercase font-bold text-slate-500 block">Pengunjung Online</span>
+                <span className="text-lg font-black text-emerald-600 font-mono">
+                  {visitorStats.onlineUsers.toLocaleString('id-ID')}
+                </span>
+              </div>
+            </div>
+
+            <p className="text-[11px] text-slate-500 mt-2.5 leading-relaxed">
+              Penghitungan hanya mencatat pengunjung riil unik (memfilter bot/crawler dan 1 kunjungan per pengunjung per hari).
+            </p>
+          </div>
+
+          <div className="pt-2 border-t border-slate-100">
+            <button
+              type="button"
+              onClick={() => {
+                setTargetVisitorInput('0');
+                setShowResetVisitorModal(true);
+              }}
+              className="w-full px-3.5 py-2.5 bg-slate-900 hover:bg-slate-800 text-white rounded-xl text-xs font-bold flex items-center justify-center gap-1.5 cursor-pointer transition-all shadow-xs"
+            >
+              <RotateCcw className="w-3.5 h-3.5" />
+              <span>Reset Jumlah Pengunjung</span>
+            </button>
+          </div>
+        </div>
       </div>
+
+      {/* MODAL 0: RESET VISITOR COUNTER */}
+      {showResetVisitorModal && (
+        <div className="fixed inset-0 bg-black/60 backdrop-blur-xs z-50 flex items-center justify-center p-4 overscroll-contain touch-none">
+          <div className="bg-white rounded-2xl p-6 max-w-sm w-full space-y-4 shadow-2xl border border-slate-200 animate-in zoom-in-95 duration-150">
+            <h4 className="font-bold text-slate-900 text-sm sm:text-base flex items-center gap-2">
+              <Users className="w-5 h-5 text-blue-600" />
+              <span>Reset Counter Pengunjung</span>
+            </h4>
+            <p className="text-xs text-slate-600 leading-relaxed">
+              Anda dapat mereset total kunjungan ke angka 0 (atau angka awal tertentu). Angka baru akan langsung disinkronkan ke Firebase dan ditampilkan di footer website.
+            </p>
+
+            <div className="space-y-1.5">
+              <label className="block text-[11px] font-bold text-slate-700 uppercase tracking-wider">
+                Angka Awal / Reset (Default: 0)
+              </label>
+              <input
+                type="number"
+                min="0"
+                value={targetVisitorInput}
+                onChange={(e) => setTargetVisitorInput(e.target.value)}
+                placeholder="0"
+                className="w-full px-3 py-2.5 bg-slate-50 border border-slate-300 rounded-xl text-sm font-mono font-bold focus:bg-white focus:ring-2 focus:ring-blue-600 focus:outline-none"
+                autoFocus
+              />
+            </div>
+
+            <div className="flex justify-end gap-2 pt-2 border-t border-slate-100">
+              <button
+                type="button"
+                onClick={() => setShowResetVisitorModal(false)}
+                className="px-3.5 py-2 border border-slate-300 hover:bg-slate-50 text-slate-700 rounded-xl text-xs font-semibold cursor-pointer"
+              >
+                Batal
+              </button>
+              <button
+                type="button"
+                onClick={handleConfirmResetVisitor}
+                disabled={resettingVisitor}
+                className="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-xl text-xs font-bold cursor-pointer disabled:opacity-50"
+              >
+                {resettingVisitor ? 'Mereset...' : 'Terapkan Reset'}
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
 
       {/* MODAL 1: SET DEFAULT */}
       {showSetDefaultModal && (
