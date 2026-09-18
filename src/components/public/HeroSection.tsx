@@ -152,10 +152,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ config }) => {
                 <button
                   type="button"
                   onClick={() => handleScrollTo(header.heroCtaLink)}
-                  style={btnBg ? { backgroundColor: btnBg, color: btnText || '#ffffff' } : undefined}
-                  className={`inline-flex items-center gap-2 font-bold px-5 py-3 rounded-xl shadow-lg transition-all text-xs sm:text-sm cursor-pointer transform hover:-translate-y-0.5 ${
-                    !btnBg ? 'bg-blue-600 hover:bg-blue-500 text-white shadow-blue-600/30' : ''
-                  }`}
+                  className="btn-theme-primary inline-flex items-center gap-2 font-bold px-5 py-3 rounded-xl shadow-lg transition-all text-xs sm:text-sm cursor-pointer transform hover:-translate-y-0.5"
                 >
                   <span>{header.heroCtaText}</span>
                   <ChevronRight className="w-4 h-4" />
@@ -168,7 +165,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ config }) => {
                   onClick={() => handleScrollTo(header.secondaryCtaLink)}
                   className="inline-flex items-center gap-2 bg-slate-900/80 hover:bg-slate-800 text-slate-200 hover:text-white border border-slate-700 hover:border-slate-500 font-semibold px-4 py-3 rounded-xl backdrop-blur-sm transition-all text-xs sm:text-sm cursor-pointer"
                 >
-                  <PlayCircle className="w-4 h-4 text-blue-400" />
+                  <PlayCircle className="w-4 h-4 text-theme-primary" />
                   <span>{header.secondaryCtaText}</span>
                 </button>
               )}
@@ -182,8 +179,9 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ config }) => {
                     key={idx}
                     type="button"
                     onClick={() => setCurrentSlide(idx)}
+                    style={idx === currentSlide ? { backgroundColor: 'var(--primary-color, #2563eb)' } : undefined}
                     className={`h-2 rounded-full transition-all cursor-pointer ${
-                      idx === currentSlide ? 'w-8 bg-blue-500' : 'w-2 bg-white/50 hover:bg-white'
+                      idx === currentSlide ? 'w-8' : 'w-2 bg-white/50 hover:bg-white'
                     }`}
                     aria-label={`Slide ${idx + 1}`}
                   />

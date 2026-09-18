@@ -16,7 +16,7 @@ export const PWAInstallButton: React.FC = () => {
     return (
       <button
         onClick={install}
-        className="inline-flex items-center gap-1.5 rounded-lg bg-blue-600 hover:bg-blue-700 text-white px-2 sm:px-3 py-1.5 text-xs font-semibold shadow-xs transition-colors cursor-pointer shrink-0"
+        className="btn-theme-primary inline-flex items-center gap-1.5 rounded-lg px-2 sm:px-3 py-1.5 text-xs font-semibold shadow-xs transition-colors cursor-pointer shrink-0"
         title="Instal Aplikasi Portal Sekolah ke Perangkat"
         aria-label="Instal Aplikasi"
       >
@@ -36,7 +36,7 @@ export const PWAInstallButton: React.FC = () => {
           title="Instal di iPhone / iPad"
           aria-label="Instal App"
         >
-          <Smartphone className="w-3.5 h-3.5 text-blue-600 shrink-0" />
+          <Smartphone className="w-3.5 h-3.5 text-theme-primary shrink-0" />
           <span className="hidden sm:inline">Instal App</span>
         </button>
 
@@ -63,7 +63,7 @@ export const PWAInstallButton: React.FC = () => {
               </p>
               <button
                 onClick={() => setShowIOSGuide(false)}
-                className="w-full rounded-xl bg-blue-600 py-2.5 text-xs font-bold text-white hover:bg-blue-700 transition cursor-pointer"
+                className="w-full rounded-xl btn-theme-primary py-2.5 text-xs font-bold transition cursor-pointer"
               >
                 Mengerti
               </button>

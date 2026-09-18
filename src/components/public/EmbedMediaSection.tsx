@@ -122,7 +122,7 @@ export const EmbedMediaSection: React.FC<EmbedMediaSectionProps> = ({
                   className="inline-flex items-center gap-1.5 bg-white hover:bg-slate-100 text-slate-700 hover:text-slate-900 text-xs font-semibold px-3 py-1.5 rounded-xl transition-colors cursor-pointer shrink-0 border border-slate-200/80 shadow-2xs"
                   title="Buka di Google Maps"
                 >
-                  <Navigation className="w-3.5 h-3.5 text-blue-600" />
+                  <Navigation className="w-3.5 h-3.5 text-theme-primary" />
                   <span className="hidden sm:inline">Buka Peta</span>
                   <ExternalLink className="w-3 h-3 text-slate-400" />
                 </a>

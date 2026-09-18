@@ -91,15 +91,15 @@ export const PrincipalSection: React.FC<PrincipalSectionProps> = ({
         {hasPinned ? (
           <div className="hidden lg:grid lg:grid-cols-2 gap-6 lg:gap-8 items-stretch">
             {/* KOLOM KIRI: Sambutan Kepala Sekolah */}
-            <div className="bg-gradient-to-br from-slate-50 via-blue-50/40 to-slate-50 border border-slate-200/80 rounded-2xl p-6 lg:p-7 shadow-xs flex flex-col justify-between h-full">
+            <div className="bg-gradient-to-br from-slate-50 via-slate-50 to-slate-50 border border-slate-200/80 rounded-2xl p-6 lg:p-7 shadow-xs flex flex-col justify-between h-full">
               <div>
                 {/* Header Badge */}
                 <div className="flex items-center justify-between gap-3 mb-4">
                   <div className="flex items-center gap-2">
-                    <span className="p-1.5 rounded-lg bg-blue-100 text-blue-700">
+                    <span className="p-1.5 rounded-lg bg-theme-light text-theme-primary">
                       <Award className="w-4 h-4" />
                     </span>
-                    <span className="text-xs font-bold uppercase tracking-wider text-blue-700">
+                    <span className="text-xs font-bold uppercase tracking-wider text-theme-primary">
                       {principal.title?.toLowerCase().includes('ketua') ? 'Ketua MGMP' : 'Pimpinan Instansi'}
                     </span>
                   </div>
@@ -133,7 +133,7 @@ export const PrincipalSection: React.FC<PrincipalSectionProps> = ({
                           className="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-300"
                         />
                       ) : (
-                        <div className="w-full h-full flex flex-col items-center justify-center bg-gradient-to-br from-blue-700 via-blue-800 to-slate-900 text-white p-3 text-center">
+                        <div className="w-full h-full flex flex-col items-center justify-center bg-theme-primary text-white p-3 text-center">
                           <Award className="w-10 h-10 text-amber-300 mb-1.5 opacity-90" />
                           <span className="text-[11px] font-bold text-white uppercase tracking-wider">
                             {principal.title || 'Ketua MGMP IPA'}
@@ -153,7 +153,7 @@ export const PrincipalSection: React.FC<PrincipalSectionProps> = ({
                     <h2 className="text-lg lg:text-xl font-extrabold text-slate-900 tracking-tight leading-snug">
                       Sambutan {principal.title?.toLowerCase().includes('ketua') ? 'Ketua' : 'Pimpinan'} {schoolName}
                     </h2>
-                    <div className="pl-3 border-l-3 border-blue-600 py-0.5">
+                    <div className="pl-3 border-l-3 border-theme-primary py-0.5">
                       <p className="text-xs sm:text-sm text-slate-600 font-medium italic leading-relaxed line-clamp-4">
                         "{principal.quote}"
                       </p>
@@ -175,7 +175,7 @@ export const PrincipalSection: React.FC<PrincipalSectionProps> = ({
                 <button
                   type="button"
                   onClick={() => setModalOpen(true)}
-                  className="inline-flex items-center gap-1.5 bg-blue-600 hover:bg-blue-700 text-white text-xs font-semibold px-4 py-2 rounded-lg shadow-2xs hover:shadow transition-all cursor-pointer"
+                  className="btn-theme-primary inline-flex items-center gap-1.5 text-xs font-semibold px-4 py-2 rounded-lg shadow-2xs hover:shadow transition-all cursor-pointer"
                 >
                   <span>Baca Sambutan Lengkap</span>
                   <ChevronRight className="w-3.5 h-3.5" />
@@ -200,7 +200,7 @@ export const PrincipalSection: React.FC<PrincipalSectionProps> = ({
                 </div>
                 <a
                   href="#berita"
-                  className="inline-flex items-center gap-1 text-xs font-semibold text-blue-600 hover:text-blue-700 transition-colors shrink-0"
+                  className="inline-flex items-center gap-1 text-xs font-semibold text-theme-primary hover:opacity-80 transition-opacity shrink-0"
                 >
                   <span>Lihat Semua</span>
                   <ArrowUpRight className="w-3.5 h-3.5" />
@@ -222,7 +222,7 @@ export const PrincipalSection: React.FC<PrincipalSectionProps> = ({
                         referrerPolicy="no-referrer"
                         className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                       />
-                      <span className="absolute top-2.5 left-2.5 bg-blue-600/90 backdrop-blur-xs text-white text-[10px] font-bold px-2.5 py-1 rounded-md">
+                      <span className="badge-theme absolute top-2.5 left-2.5 text-[10px] font-bold px-2.5 py-1 rounded-md">
                         {pinnedArticles[0].category}
                       </span>
                       <span className="absolute top-2.5 right-2.5 bg-amber-500 text-white text-[10px] font-bold px-2 py-0.5 rounded-md flex items-center gap-1 shadow-sm">
@@ -232,7 +232,7 @@ export const PrincipalSection: React.FC<PrincipalSectionProps> = ({
                     </div>
                     <div className="p-4 flex-1 flex flex-col justify-between space-y-2">
                       <div>
-                        <h4 className="font-bold text-slate-900 group-hover:text-blue-600 transition-colors text-base line-clamp-2 leading-snug">
+                        <h4 className="font-bold text-slate-900 group-hover:text-theme-primary transition-colors text-base line-clamp-2 leading-snug">
                           {pinnedArticles[0].title}
                         </h4>
                       </div>
@@ -241,7 +241,7 @@ export const PrincipalSection: React.FC<PrincipalSectionProps> = ({
                           <Calendar className="w-3.5 h-3.5" />
                           {pinnedArticles[0].date}
                         </span>
-                        <span className="text-blue-600 font-semibold group-hover:underline flex items-center gap-1">
+                        <span className="text-theme-primary font-semibold group-hover:underline flex items-center gap-1">
                           Baca Selengkapnya
                           <ChevronRight className="w-3.5 h-3.5" />
                         </span>
@@ -266,7 +266,7 @@ export const PrincipalSection: React.FC<PrincipalSectionProps> = ({
                             referrerPolicy="no-referrer"
                             className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                           />
-                          <span className="absolute top-1.5 left-1.5 bg-blue-600/90 text-white text-[9px] font-bold px-1.5 py-0.5 rounded">
+                          <span className="badge-theme absolute top-1.5 left-1.5 text-[9px] font-bold px-1.5 py-0.5 rounded">
                             {art.category}
                           </span>
                         </div>
@@ -276,13 +276,13 @@ export const PrincipalSection: React.FC<PrincipalSectionProps> = ({
                               <Pin className="w-3 h-3 rotate-45" />
                               <span>Unggulan</span>
                             </div>
-                            <h4 className="font-bold text-slate-900 group-hover:text-blue-600 transition-colors text-xs sm:text-sm line-clamp-2 leading-snug">
+                            <h4 className="font-bold text-slate-900 group-hover:text-theme-primary transition-colors text-xs sm:text-sm line-clamp-2 leading-snug">
                               {art.title}
                             </h4>
                           </div>
                           <div className="flex items-center justify-between text-[10px] text-slate-400 mt-1">
                             <span>{art.date}</span>
-                            <span className="text-blue-600 font-semibold group-hover:underline flex items-center">
+                            <span className="text-theme-primary font-semibold group-hover:underline flex items-center">
                               Detail <ChevronRight className="w-3 h-3" />
                             </span>
                           </div>
@@ -311,15 +311,15 @@ export const PrincipalSection: React.FC<PrincipalSectionProps> = ({
                         </div>
                         <div className="flex-1 min-w-0">
                           <div className="flex items-center gap-2 text-[10px] mb-0.5">
-                            <span className="font-bold text-blue-600">{art.category}</span>
+                            <span className="font-bold text-theme-primary">{art.category}</span>
                             <span className="text-slate-300">•</span>
                             <span className="text-slate-400">{art.date}</span>
                           </div>
-                          <h4 className="font-bold text-slate-900 group-hover:text-blue-600 transition-colors text-xs line-clamp-2 leading-tight">
+                          <h4 className="font-bold text-slate-900 group-hover:text-theme-primary transition-colors text-xs line-clamp-2 leading-tight">
                             {art.title}
                           </h4>
                         </div>
-                        <ChevronRight className="w-4 h-4 text-slate-300 group-hover:text-blue-600 group-hover:translate-x-0.5 transition-all shrink-0" />
+                        <ChevronRight className="w-4 h-4 text-slate-300 group-hover:text-theme-primary group-hover:translate-x-0.5 transition-all shrink-0" />
                       </div>
                     ))}
                   </div>
@@ -344,15 +344,15 @@ export const PrincipalSection: React.FC<PrincipalSectionProps> = ({
                         </div>
                         <div className="flex-1 min-w-0">
                           <div className="flex items-center gap-1.5 text-[9px] mb-0.5">
-                            <span className="font-bold text-blue-600">{art.category}</span>
+                            <span className="font-bold text-theme-primary">{art.category}</span>
                             <span className="text-slate-300">•</span>
                             <span className="text-slate-400">{art.date}</span>
                           </div>
-                          <h4 className="font-bold text-slate-900 group-hover:text-blue-600 transition-colors text-xs line-clamp-2 leading-tight">
+                          <h4 className="font-bold text-slate-900 group-hover:text-theme-primary transition-colors text-xs line-clamp-2 leading-tight">
                             {art.title}
                           </h4>
                         </div>
-                        <ChevronRight className="w-3.5 h-3.5 text-slate-300 group-hover:text-blue-600 group-hover:translate-x-0.5 transition-all shrink-0" />
+                        <ChevronRight className="w-3.5 h-3.5 text-slate-300 group-hover:text-theme-primary group-hover:translate-x-0.5 transition-all shrink-0" />
                       </div>
                     ))}
                   </div>
@@ -362,13 +362,13 @@ export const PrincipalSection: React.FC<PrincipalSectionProps> = ({
           </div>
         ) : (
           /* Desktop layout jika tidak ada postingan sama sekali */
-          <div className="hidden lg:block max-w-4xl mx-auto bg-gradient-to-br from-slate-50 via-blue-50/40 to-slate-50 border border-slate-200/80 rounded-2xl p-7 shadow-xs">
+          <div className="hidden lg:block max-w-4xl mx-auto bg-gradient-to-br from-slate-50 via-slate-50 to-slate-50 border border-slate-200/80 rounded-2xl p-7 shadow-xs">
             <div className="flex items-center justify-between gap-3 mb-4">
               <div className="flex items-center gap-2">
-                <span className="p-1.5 rounded-lg bg-blue-100 text-blue-700">
+                <span className="p-1.5 rounded-lg bg-theme-light text-theme-primary">
                   <Award className="w-4 h-4" />
                 </span>
-                <span className="text-xs font-bold uppercase tracking-wider text-blue-700">
+                <span className="text-xs font-bold uppercase tracking-wider text-theme-primary">
                   Pimpinan Sekolah
                 </span>
               </div>
@@ -389,7 +389,7 @@ export const PrincipalSection: React.FC<PrincipalSectionProps> = ({
                     className="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-300"
                   />
                 ) : (
-                  <div className="w-full h-full flex flex-col items-center justify-center bg-gradient-to-br from-blue-700 via-blue-800 to-slate-900 text-white p-3 text-center">
+                  <div className="w-full h-full flex flex-col items-center justify-center bg-theme-primary text-white p-3 text-center">
                     <Award className="w-12 h-12 text-amber-300 mb-2 opacity-90" />
                     <span className="text-xs font-bold text-white uppercase tracking-wider">
                       {principal.title || 'Ketua MGMP IPA'}
@@ -401,13 +401,13 @@ export const PrincipalSection: React.FC<PrincipalSectionProps> = ({
                 <h2 className="text-xl font-extrabold text-slate-900">
                   Sambutan {principal.title?.toLowerCase().includes('ketua') ? 'Ketua' : 'Pimpinan'} {schoolName}
                 </h2>
-                <p className="text-sm text-slate-600 italic border-l-3 border-blue-600 pl-3">
+                <p className="text-sm text-slate-600 italic border-l-3 border-theme-primary pl-3">
                   "{principal.quote}"
                 </p>
                 <button
                   type="button"
                   onClick={() => setModalOpen(true)}
-                  className="inline-flex items-center gap-1.5 bg-blue-600 hover:bg-blue-700 text-white text-xs font-semibold px-4 py-2 rounded-lg shadow-2xs mt-3 cursor-pointer"
+                  className="btn-theme-primary inline-flex items-center gap-1.5 text-xs font-semibold px-4 py-2 rounded-lg shadow-2xs mt-3 cursor-pointer"
                 >
                   <span>Baca Sambutan Lengkap</span>
                   <ChevronRight className="w-3.5 h-3.5" />
@@ -427,7 +427,7 @@ export const PrincipalSection: React.FC<PrincipalSectionProps> = ({
             onClick={() => setModalOpen(true)}
             className={`${
               hasPinned ? 'col-span-5 sm:col-span-5' : 'col-span-12'
-            } flex flex-col justify-between bg-gradient-to-b from-blue-50/70 via-slate-50 to-blue-50/40 border border-slate-200/80 rounded-2xl p-2.5 sm:p-3 shadow-2xs cursor-pointer group active:scale-[0.99] transition-transform h-full`}
+            } flex flex-col justify-between bg-gradient-to-b from-slate-50 via-slate-50 to-slate-100/50 border border-slate-200/80 rounded-2xl p-2.5 sm:p-3 shadow-2xs cursor-pointer group active:scale-[0.99] transition-transform h-full`}
             role="button"
             tabIndex={0}
             title="Ketuk untuk membaca sambutan"
@@ -443,7 +443,7 @@ export const PrincipalSection: React.FC<PrincipalSectionProps> = ({
                     className="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-300"
                   />
                 ) : (
-                  <div className="w-full h-full flex flex-col items-center justify-center bg-gradient-to-br from-blue-700 via-blue-800 to-slate-900 text-white p-2 text-center">
+                  <div className="w-full h-full flex flex-col items-center justify-center bg-theme-primary text-white p-2 text-center">
                     <Award className="w-7 h-7 text-amber-300 mb-1 opacity-90" />
                     <span className="text-[9px] font-bold text-white uppercase tracking-wider line-clamp-1">
                       {principal.title || 'Ketua MGMP IPA'}
@@ -471,7 +471,7 @@ export const PrincipalSection: React.FC<PrincipalSectionProps> = ({
 
             {/* Button / Trigger */}
             <div className="mt-2 pt-1.5 border-t border-slate-200/60">
-              <div className="w-full py-1.5 px-2 bg-blue-600 group-hover:bg-blue-700 text-white rounded-lg text-[10px] font-bold flex items-center justify-center gap-1 shadow-2xs">
+              <div className="btn-theme-primary w-full py-1.5 px-2 rounded-lg text-[10px] font-bold flex items-center justify-center gap-1 shadow-2xs">
                 <span>Sambutan</span>
                 <ChevronRight className="w-3 h-3" />
               </div>
@@ -486,7 +486,7 @@ export const PrincipalSection: React.FC<PrincipalSectionProps> = ({
               {pinnedCount === 1 && (
                 <div
                   onClick={() => handleArticleClick(pinnedArticles[0])}
-                  className="flex-1 h-full bg-white hover:bg-blue-50/50 border border-slate-200/90 rounded-2xl p-2.5 sm:p-3 shadow-2xs flex flex-col justify-between cursor-pointer active:scale-[0.99] transition-all group"
+                  className="flex-1 h-full bg-white hover:bg-slate-50 border border-slate-200/90 rounded-2xl p-2.5 sm:p-3 shadow-2xs flex flex-col justify-between cursor-pointer active:scale-[0.99] transition-all group"
                 >
                   <div className="space-y-2">
                     {/* Cover Image */}
@@ -497,7 +497,7 @@ export const PrincipalSection: React.FC<PrincipalSectionProps> = ({
                         referrerPolicy="no-referrer"
                         className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                       />
-                      <span className="absolute top-1.5 left-1.5 bg-blue-600/90 backdrop-blur-xs text-white text-[9px] font-bold px-1.5 py-0.5 rounded shadow-2xs">
+                      <span className="badge-theme absolute top-1.5 left-1.5 backdrop-blur-xs text-[9px] font-bold px-1.5 py-0.5 rounded shadow-2xs">
                         {pinnedArticles[0].category}
                       </span>
                       <span className="absolute top-1.5 right-1.5 bg-amber-500 text-white text-[8px] font-bold px-1.5 py-0.5 rounded flex items-center gap-1 shadow-2xs">
@@ -508,7 +508,7 @@ export const PrincipalSection: React.FC<PrincipalSectionProps> = ({
 
                     {/* Title */}
                     <div className="space-y-1">
-                      <h4 className="text-[11px] sm:text-xs font-bold text-slate-800 group-hover:text-blue-600 line-clamp-3 leading-snug">
+                      <h4 className="text-[11px] sm:text-xs font-bold text-slate-800 group-hover:text-theme-primary line-clamp-3 leading-snug">
                         {pinnedArticles[0].title}
                       </h4>
                     </div>
@@ -517,7 +517,7 @@ export const PrincipalSection: React.FC<PrincipalSectionProps> = ({
                   {/* Bottom Bar: Tanggal & Baca */}
                   <div className="mt-2 pt-1.5 border-t border-slate-100 flex items-center justify-between text-[9px] text-slate-400">
                     <span className="truncate">{pinnedArticles[0].date}</span>
-                    <span className="text-blue-600 font-bold flex items-center gap-0.5 shrink-0">
+                    <span className="text-theme-primary font-bold flex items-center gap-0.5 shrink-0">
                       Baca Berita
                       <ChevronRight className="w-3 h-3" />
                     </span>
@@ -532,7 +532,7 @@ export const PrincipalSection: React.FC<PrincipalSectionProps> = ({
                     <div
                       key={art.id}
                       onClick={() => handleArticleClick(art)}
-                      className="flex-1 bg-white hover:bg-blue-50/50 border border-slate-200/90 rounded-xl p-2 shadow-2xs flex flex-col justify-between cursor-pointer active:scale-[0.98] transition-all group"
+                      className="flex-1 bg-white hover:bg-slate-50 border border-slate-200/90 rounded-xl p-2 shadow-2xs flex flex-col justify-between cursor-pointer active:scale-[0.98] transition-all group"
                     >
                       <div className="flex gap-2 items-start">
                         <div className="relative w-16 h-16 sm:w-18 sm:h-18 rounded-lg overflow-hidden bg-slate-100 shrink-0 border border-slate-100">
@@ -544,11 +544,11 @@ export const PrincipalSection: React.FC<PrincipalSectionProps> = ({
                           />
                         </div>
                         <div className="flex-1 min-w-0">
-                          <div className="flex items-center gap-1 text-[8px] font-bold text-blue-600 truncate mb-0.5">
+                          <div className="flex items-center gap-1 text-[8px] font-bold text-theme-primary truncate mb-0.5">
                             <Pin className="w-2.5 h-2.5 text-amber-500 rotate-45 shrink-0" />
                             <span className="truncate">{art.category}</span>
                           </div>
-                          <h4 className="text-[10px] sm:text-[11px] font-bold text-slate-800 group-hover:text-blue-600 line-clamp-2 leading-tight">
+                          <h4 className="text-[10px] sm:text-[11px] font-bold text-slate-800 group-hover:text-theme-primary line-clamp-2 leading-tight">
                             {art.title}
                           </h4>
                         </div>
@@ -556,7 +556,7 @@ export const PrincipalSection: React.FC<PrincipalSectionProps> = ({
 
                       <div className="mt-1 pt-1 border-t border-slate-100 flex items-center justify-between text-[8px] sm:text-[9px] text-slate-400">
                         <span className="truncate">{art.date}</span>
-                        <span className="text-blue-600 font-bold flex items-center">
+                        <span className="text-theme-primary font-bold flex items-center">
                           Detail <ChevronRight className="w-2.5 h-2.5" />
                         </span>
                       </div>
@@ -572,7 +572,7 @@ export const PrincipalSection: React.FC<PrincipalSectionProps> = ({
                     <div
                       key={art.id}
                       onClick={() => handleArticleClick(art)}
-                      className="flex-1 min-h-[58px] sm:min-h-[64px] bg-white hover:bg-blue-50/60 active:bg-blue-50/90 border border-slate-200/90 rounded-xl p-1.5 sm:p-2 shadow-2xs flex items-center gap-2 cursor-pointer transition-all active:scale-[0.98] group"
+                      className="flex-1 min-h-[58px] sm:min-h-[64px] bg-white hover:bg-slate-50 active:bg-slate-100 border border-slate-200/90 rounded-xl p-1.5 sm:p-2 shadow-2xs flex items-center gap-2 cursor-pointer transition-all active:scale-[0.98] group"
                     >
                       <div className="relative w-12 h-12 sm:w-14 sm:h-14 rounded-lg overflow-hidden bg-slate-100 shrink-0 border border-slate-100">
                         <img
@@ -583,11 +583,11 @@ export const PrincipalSection: React.FC<PrincipalSectionProps> = ({
                         />
                       </div>
                       <div className="flex-1 min-w-0 flex flex-col justify-center">
-                        <div className="flex items-center gap-1 text-[8px] sm:text-[9px] font-bold text-blue-600 truncate mb-0.5">
+                        <div className="flex items-center gap-1 text-[8px] sm:text-[9px] font-bold text-theme-primary truncate mb-0.5">
                           <Pin className="w-2.5 h-2.5 text-amber-500 rotate-45 shrink-0" />
                           <span className="truncate">{art.category}</span>
                         </div>
-                        <h4 className="text-[10px] sm:text-[11px] font-bold text-slate-800 group-hover:text-blue-600 line-clamp-2 leading-tight">
+                        <h4 className="text-[10px] sm:text-[11px] font-bold text-slate-800 group-hover:text-theme-primary line-clamp-2 leading-tight">
                           {art.title}
                         </h4>
                         <span className="text-[8px] sm:text-[9px] text-slate-400 truncate mt-0.5">
@@ -606,7 +606,7 @@ export const PrincipalSection: React.FC<PrincipalSectionProps> = ({
                     <div
                       key={art.id}
                       onClick={() => handleArticleClick(art)}
-                      className="flex-1 min-h-[54px] sm:min-h-[60px] bg-white hover:bg-blue-50/60 active:bg-blue-50/90 border border-slate-200/90 rounded-xl p-1.5 sm:p-2 shadow-2xs flex items-center gap-1.5 sm:gap-2 cursor-pointer transition-all active:scale-[0.98] group"
+                      className="flex-1 min-h-[54px] sm:min-h-[60px] bg-white hover:bg-slate-50 active:bg-slate-100 border border-slate-200/90 rounded-xl p-1.5 sm:p-2 shadow-2xs flex items-center gap-1.5 sm:gap-2 cursor-pointer transition-all active:scale-[0.98] group"
                     >
                       <div className="relative w-11 h-11 sm:w-13 sm:h-13 rounded-lg overflow-hidden bg-slate-100 shrink-0 border border-slate-100">
                         <img
@@ -617,11 +617,11 @@ export const PrincipalSection: React.FC<PrincipalSectionProps> = ({
                         />
                       </div>
                       <div className="flex-1 min-w-0 flex flex-col justify-center">
-                        <div className="flex items-center gap-1 text-[8px] sm:text-[9px] font-bold text-blue-600 truncate mb-0.5">
+                        <div className="flex items-center gap-1 text-[8px] sm:text-[9px] font-bold text-theme-primary truncate mb-0.5">
                           <Pin className="w-2 h-2 text-amber-500 rotate-45 shrink-0" />
                           <span className="truncate">{art.category}</span>
                         </div>
-                        <h4 className="text-[10px] sm:text-[11px] font-bold text-slate-800 group-hover:text-blue-600 line-clamp-2 leading-tight">
+                        <h4 className="text-[10px] sm:text-[11px] font-bold text-slate-800 group-hover:text-theme-primary line-clamp-2 leading-tight">
                           {art.title}
                         </h4>
                         <span className="text-[8px] sm:text-[9px] text-slate-400 truncate mt-0.5">

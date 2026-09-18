@@ -159,7 +159,7 @@ export const MobileBottomNav: React.FC<MobileBottomNavProps> = ({
       case 'rose': return 'text-rose-300 font-bold drop-shadow-[0_0_8px_rgba(253,164,175,0.6)]';
       case 'purple': return 'text-purple-300 font-bold drop-shadow-[0_0_8px_rgba(216,180,254,0.6)]';
       case 'cyan': return 'text-cyan-300 font-bold drop-shadow-[0_0_8px_rgba(103,232,249,0.6)]';
-      default: return 'text-blue-300 font-bold drop-shadow-[0_0_8px_rgba(147,197,253,0.6)]';
+      default: return 'text-[var(--theme-primary)] font-bold drop-shadow-[0_0_8px_var(--theme-primary)]';
     }
   };
 
@@ -178,7 +178,7 @@ export const MobileBottomNav: React.FC<MobileBottomNavProps> = ({
         case 'rose': return 'bg-rose-600 text-white shadow-md shadow-rose-600/30';
         case 'purple': return 'bg-purple-600 text-white shadow-md shadow-purple-600/30';
         case 'cyan': return 'bg-cyan-600 text-white shadow-md shadow-cyan-600/30';
-        default: return 'bg-blue-600 text-white shadow-md shadow-blue-600/30';
+        default: return 'btn-theme-primary text-white shadow-md';
       }
     }
 
@@ -189,13 +189,13 @@ export const MobileBottomNav: React.FC<MobileBottomNavProps> = ({
       case 'rose': return 'bg-rose-500/25 border border-rose-400/40 shadow-inner shadow-rose-500/20';
       case 'purple': return 'bg-purple-500/25 border border-purple-400/40 shadow-inner shadow-purple-500/20';
       case 'cyan': return 'bg-cyan-500/25 border border-cyan-400/40 shadow-inner shadow-cyan-500/20';
-      default: return 'bg-blue-500/25 border border-blue-400/40 shadow-inner shadow-blue-500/20';
+      default: return 'bg-[var(--theme-primary)]/25 border border-[var(--theme-primary)]/40 shadow-inner text-[var(--theme-primary)]';
     }
   };
 
   const getHomeCenterBgClass = (isActive: boolean) => {
     if (theme === 'ocean-gradient') {
-      return 'bg-white text-blue-600 shadow-lg shadow-blue-900/40';
+      return 'bg-white text-[var(--theme-primary)] shadow-lg';
     }
     if (!isActive) {
       return isLight
@@ -209,13 +209,13 @@ export const MobileBottomNav: React.FC<MobileBottomNavProps> = ({
       case 'rose': return 'bg-gradient-to-tr from-rose-600 via-rose-500 to-pink-500 text-white shadow-rose-600/50 ring-2 ring-rose-400/40';
       case 'purple': return 'bg-gradient-to-tr from-purple-600 via-purple-500 to-indigo-500 text-white shadow-purple-600/50 ring-2 ring-purple-400/40';
       case 'cyan': return 'bg-gradient-to-tr from-cyan-600 via-teal-500 to-cyan-500 text-white shadow-cyan-600/50 ring-2 ring-cyan-400/40';
-      default: return 'bg-gradient-to-tr from-blue-600 via-indigo-600 to-blue-500 text-white shadow-blue-600/50 ring-2 ring-blue-400/40';
+      default: return 'btn-theme-primary text-white shadow-lg ring-2 ring-white/30';
     }
   };
 
   const getGlowShadowStyle = () => {
     if (!hasGlow) return {};
-    let glowColor = 'rgba(59, 130, 246, 0.55)'; // blue
+    let glowColor = 'var(--theme-primary)';
     if (accent === 'indigo') glowColor = 'rgba(99, 102, 241, 0.6)';
     if (accent === 'emerald') glowColor = 'rgba(16, 185, 129, 0.6)';
     if (accent === 'amber') glowColor = 'rgba(245, 158, 11, 0.65)';

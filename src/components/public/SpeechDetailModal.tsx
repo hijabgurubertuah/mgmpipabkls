@@ -42,7 +42,7 @@ export const SpeechDetailModal: React.FC<SpeechDetailModalProps> = ({
           <div className="flex items-center justify-between p-4 sm:p-5 border-b border-slate-100 bg-slate-50">
             <div className="flex items-center gap-3">
               {/* Logo / Badge */}
-              <div className="w-10 h-10 sm:w-11 sm:h-11 rounded-xl bg-blue-50 border border-blue-200/90 shadow-xs flex items-center justify-center p-1.5 shrink-0 overflow-hidden">
+              <div className="w-10 h-10 sm:w-11 sm:h-11 rounded-xl bg-theme-light border border-[var(--theme-primary)]/20 shadow-xs flex items-center justify-center p-1.5 shrink-0 overflow-hidden">
                 {logoUrl ? (
                   <img
                     src={logoUrl}
@@ -51,7 +51,7 @@ export const SpeechDetailModal: React.FC<SpeechDetailModalProps> = ({
                     className="w-full h-full object-contain"
                   />
                 ) : (
-                  <Award className="w-6 h-6 text-blue-600" />
+                  <Award className="w-6 h-6 text-theme-primary" />
                 )}
               </div>
               <div>
@@ -73,13 +73,13 @@ export const SpeechDetailModal: React.FC<SpeechDetailModalProps> = ({
           {/* Modal Body */}
           <div className="p-4 sm:p-6 overflow-y-auto space-y-4 text-slate-700 text-sm sm:text-base leading-relaxed">
             {/* Foto Pimpinan di Samping Quotes (Bisa Diklik & Preview) */}
-            <div className="flex items-center gap-3 sm:gap-4 bg-gradient-to-r from-blue-50/90 via-slate-50 to-blue-50/60 border border-blue-100/90 rounded-2xl p-3 sm:p-4 shadow-2xs">
+            <div className="flex items-center gap-3 sm:gap-4 bg-gradient-to-r from-slate-50 via-slate-50 to-slate-100/60 border border-slate-200/90 rounded-2xl p-3 sm:p-4 shadow-2xs">
               {principal.imageUrl ? (
                 <button
                   type="button"
                   onClick={() => setPhotoPreviewOpen(true)}
                   title="Ketuk untuk melihat foto ukuran penuh"
-                  className="group relative w-16 h-20 sm:w-22 sm:h-28 rounded-xl overflow-hidden shadow-xs border-2 border-white bg-slate-200 shrink-0 text-left cursor-pointer focus:outline-none focus:ring-2 focus:ring-blue-500 active:scale-95 transition-transform"
+                  className="group relative w-16 h-20 sm:w-22 sm:h-28 rounded-xl overflow-hidden shadow-xs border-2 border-white bg-slate-200 shrink-0 text-left cursor-pointer focus:outline-none focus:ring-2 focus:ring-[var(--theme-primary)] active:scale-95 transition-transform"
                 >
                   <img
                     src={principal.imageUrl}
@@ -100,7 +100,7 @@ export const SpeechDetailModal: React.FC<SpeechDetailModalProps> = ({
                 </button>
               ) : (
                 <div className="relative w-16 h-20 sm:w-22 sm:h-28 rounded-xl overflow-hidden shadow-xs border-2 border-white bg-slate-200 shrink-0">
-                  <div className="w-full h-full flex flex-col items-center justify-center bg-gradient-to-br from-blue-700 via-blue-800 to-slate-900 text-white p-1 text-center">
+                  <div className="w-full h-full flex flex-col items-center justify-center bg-theme-primary text-white p-1 text-center">
                     <Award className="w-6 h-6 text-amber-300 mb-0.5" />
                     <span className="text-[7px] font-bold text-white uppercase">{principal.title || 'Ketua MGMP'}</span>
                   </div>
@@ -108,7 +108,7 @@ export const SpeechDetailModal: React.FC<SpeechDetailModalProps> = ({
               )}
 
               <div className="flex-1 min-w-0">
-                <p className="text-xs sm:text-sm text-blue-950 font-medium italic leading-relaxed">
+                <p className="text-xs sm:text-sm text-slate-900 font-medium italic leading-relaxed">
                   "{principal.quote}"
                 </p>
                 <p className="text-[11px] sm:text-xs font-semibold text-slate-500 mt-1 sm:mt-1.5 not-italic">
@@ -135,7 +135,7 @@ export const SpeechDetailModal: React.FC<SpeechDetailModalProps> = ({
             <button
               type="button"
               onClick={onClose}
-              className="px-5 py-2 bg-slate-800 hover:bg-slate-900 text-white text-sm font-semibold rounded-lg transition-colors cursor-pointer"
+              className="btn-theme-primary px-5 py-2 text-sm font-semibold rounded-lg transition-colors cursor-pointer"
             >
               Tutup
             </button>

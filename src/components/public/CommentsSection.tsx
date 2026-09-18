@@ -486,7 +486,7 @@ export const CommentsSection: React.FC<CommentsSectionProps> = ({
                 className="w-7 h-7 sm:w-8 sm:h-8 rounded-full object-cover border border-slate-200 shrink-0 shadow-2xs"
               />
             ) : (
-              <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-gradient-to-br from-blue-600 to-indigo-700 text-white flex items-center justify-center font-bold text-xs shrink-0 shadow-2xs">
+              <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-theme-primary text-white flex items-center justify-center font-bold text-xs shrink-0 shadow-2xs">
                 {comment.userName.charAt(0).toUpperCase()}
               </div>
             )}
@@ -505,7 +505,7 @@ export const CommentsSection: React.FC<CommentsSectionProps> = ({
                 )}
 
                 {isAuthor && (
-                  <span className="text-[9px] bg-blue-50 text-blue-700 border border-blue-200 px-1.5 py-0.2 rounded-md font-semibold">
+                  <span className="badge-theme text-[9px] px-1.5 py-0.2 rounded-md font-semibold">
                     Anda
                   </span>
                 )}
@@ -538,11 +538,11 @@ export const CommentsSection: React.FC<CommentsSectionProps> = ({
                 <button
                   type="button"
                   onClick={() => handleStartEdit(comment)}
-                  className="p-1.5 rounded-full text-slate-400 hover:text-blue-600 hover:bg-blue-50 active:scale-90 transition-all cursor-pointer"
+                  className="p-1.5 rounded-full text-slate-400 hover:text-theme-primary hover:bg-theme-light active:scale-90 transition-all cursor-pointer"
                   title="Edit komentar saya"
                   aria-label="Edit komentar"
                 >
-                  <Edit3 className="w-3.5 h-3.5 text-blue-600" />
+                  <Edit3 className="w-3.5 h-3.5 text-theme-primary" />
                 </button>
 
                 {confirmDeleteId === comment.id ? (
@@ -582,11 +582,11 @@ export const CommentsSection: React.FC<CommentsSectionProps> = ({
               <button
                 type="button"
                 onClick={() => handleStartReply(comment)}
-                className="p-1.5 rounded-full text-slate-500 hover:text-blue-600 hover:bg-blue-50 border border-slate-200/80 transition-all cursor-pointer active:scale-90"
+                className="p-1.5 rounded-full text-slate-500 hover:text-theme-primary hover:bg-theme-light border border-slate-200/80 transition-all cursor-pointer active:scale-90"
                 title="Balas komentar ini"
                 aria-label="Balas komentar"
               >
-                <CornerDownRight className="w-3.5 h-3.5 text-blue-600 shrink-0" />
+                <CornerDownRight className="w-3.5 h-3.5 text-theme-primary shrink-0" />
               </button>
             )}
 
@@ -619,7 +619,7 @@ export const CommentsSection: React.FC<CommentsSectionProps> = ({
               value={editingText}
               onChange={(e) => setEditingText(e.target.value)}
               placeholder="Ketik komentar Anda (kosongkan untuk menghapus)..."
-              className="w-full text-xs sm:text-sm p-2.5 bg-slate-50 border border-blue-400 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500/30 text-slate-800 resize-none transition-all overflow-y-auto min-h-[42px] max-h-[220px]"
+              className="w-full text-xs sm:text-sm p-2.5 bg-slate-50 border border-[var(--theme-primary)]/40 rounded-xl focus:outline-none focus:ring-2 focus:ring-[var(--theme-primary)]/30 text-slate-800 resize-none transition-all overflow-y-auto min-h-[42px] max-h-[220px]"
               rows={1}
             />
             <div className="flex items-center justify-end gap-2">
@@ -647,7 +647,7 @@ export const CommentsSection: React.FC<CommentsSectionProps> = ({
                   type="button"
                   onClick={() => handleSaveEdit(comment.id)}
                   disabled={isSavingEdit}
-                  className="inline-flex items-center gap-1.5 px-3 py-1 bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs rounded-lg transition-all cursor-pointer active:scale-95 shadow-2xs"
+                  className="btn-theme-primary inline-flex items-center gap-1.5 px-3 py-1 font-bold text-xs rounded-lg transition-all cursor-pointer active:scale-95 shadow-2xs"
                 >
                   <Check className="w-3.5 h-3.5" />
                   <span>Simpan Perubahan</span>
@@ -665,12 +665,12 @@ export const CommentsSection: React.FC<CommentsSectionProps> = ({
 
         {/* Inline Reply Form Box */}
         {replyingToId === comment.id && (
-          <div className="mt-2.5 pl-9 sm:pl-10.5 border-l-2 border-blue-400/80 animate-in fade-in duration-200">
-            <div className="bg-blue-50/70 border border-blue-200/90 rounded-xl p-2.5 space-y-2">
-              <div className="flex items-center justify-between text-[11px] text-blue-800 font-bold">
+          <div className="mt-2.5 pl-9 sm:pl-10.5 border-l-2 border-[var(--theme-primary)]/80 animate-in fade-in duration-200">
+            <div className="bg-theme-light border border-[var(--theme-primary)]/20 rounded-xl p-2.5 space-y-2">
+              <div className="flex items-center justify-between text-[11px] text-theme-primary font-bold">
                 <span className="flex items-center gap-1">
-                  <CornerDownRight className="w-3.5 h-3.5 text-blue-600 shrink-0" />
-                  <span>Membalas <strong className="text-blue-900">@{replyTargetUser}</strong></span>
+                  <CornerDownRight className="w-3.5 h-3.5 text-theme-primary shrink-0" />
+                  <span>Membalas <strong className="text-slate-900">@{replyTargetUser}</strong></span>
                 </span>
                 <button
                   type="button"
@@ -688,7 +688,7 @@ export const CommentsSection: React.FC<CommentsSectionProps> = ({
                   onChange={(e) => handleNameChange(e.target.value)}
                   placeholder="Nama Anda (wajib untuk membalas)..."
                   maxLength={40}
-                  className="w-full text-xs font-semibold px-2.5 py-1.5 bg-white border border-blue-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-slate-800 placeholder-slate-400"
+                  className="w-full text-xs font-semibold px-2.5 py-1.5 bg-white border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[var(--theme-primary)] text-slate-800 placeholder-slate-400"
                 />
               )}
 
@@ -697,7 +697,7 @@ export const CommentsSection: React.FC<CommentsSectionProps> = ({
                 value={replyText}
                 onChange={(e) => setReplyText(e.target.value)}
                 placeholder={`Tulis balasan untuk @${replyTargetUser}...`}
-                className="w-full text-xs sm:text-sm p-2 bg-white border border-blue-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500/30 text-slate-800 resize-none transition-all overflow-y-auto min-h-[42px] max-h-[180px]"
+                className="w-full text-xs sm:text-sm p-2 bg-white border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[var(--theme-primary)]/30 text-slate-800 resize-none transition-all overflow-y-auto min-h-[42px] max-h-[180px]"
                 rows={1}
                 autoFocus
               />
@@ -714,7 +714,7 @@ export const CommentsSection: React.FC<CommentsSectionProps> = ({
                   type="button"
                   onClick={handleSendReply}
                   disabled={isSubmittingReply || !replyText.trim() || !customName.trim()}
-                  className="inline-flex items-center gap-1 px-3 py-1 bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs rounded-lg transition-all cursor-pointer active:scale-95 disabled:opacity-50"
+                  className="btn-theme-primary inline-flex items-center gap-1 px-3 py-1 font-bold text-xs rounded-lg transition-all cursor-pointer active:scale-95 disabled:opacity-50"
                 >
                   <Send className="w-3 h-3" />
                   <span>Kirim Balasan</span>
@@ -732,7 +732,7 @@ export const CommentsSection: React.FC<CommentsSectionProps> = ({
       {/* Header Info */}
       <div className="flex items-center justify-between gap-3 mb-2.5 pb-2 border-b border-slate-200">
         <div className="flex items-center gap-2">
-          <div className="p-1.5 rounded-lg bg-blue-100 text-blue-700 shrink-0">
+          <div className="p-1.5 rounded-lg bg-theme-light text-theme-primary shrink-0">
             <MessageSquare className="w-4 h-4" />
           </div>
           <div>
@@ -749,14 +749,14 @@ export const CommentsSection: React.FC<CommentsSectionProps> = ({
       {/* Comment Form Card (No login required - open for everyone) */}
       <div
         ref={formCardRef}
-        className={`bg-slate-50/95 border border-slate-200/90 rounded-xl p-3 sm:p-3.5 mb-3.5 shadow-2xs focus-within:ring-2 focus-within:ring-blue-400/30 focus-within:border-blue-400 transition-all scroll-mt-6 sm:scroll-mt-24 ${
-          isFocused ? 'border-blue-400/80 bg-blue-50/20' : ''
+        className={`bg-slate-50/95 border border-slate-200/90 rounded-xl p-3 sm:p-3.5 mb-3.5 shadow-2xs focus-within:ring-2 focus-within:ring-[var(--theme-primary)]/30 focus-within:border-[var(--theme-primary)] transition-all scroll-mt-6 sm:scroll-mt-24 ${
+          isFocused ? 'border-[var(--theme-primary)] bg-theme-light' : ''
         }`}
       >
         <form onSubmit={handleSubmit} className="space-y-2.5">
           {/* Identity & Name Input Bar */}
           <div className="flex items-center gap-2 pb-2 border-b border-slate-200/70">
-            <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-linear-to-br from-blue-600 to-indigo-700 text-white flex items-center justify-center font-bold text-xs shrink-0 shadow-2xs">
+            <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-theme-primary text-white flex items-center justify-center font-bold text-xs shrink-0 shadow-2xs">
               {(customName.trim() || 'P').charAt(0).toUpperCase()}
             </div>
 
@@ -771,7 +771,7 @@ export const CommentsSection: React.FC<CommentsSectionProps> = ({
                 className={`w-full text-xs sm:text-sm font-semibold px-2.5 py-1.5 bg-white border rounded-lg focus:outline-none focus:ring-2 text-slate-800 placeholder-slate-400 transition-all ${
                   nameError
                     ? 'border-rose-400 focus:ring-rose-400 bg-rose-50/30'
-                    : 'border-slate-300 focus:ring-blue-500 focus:border-blue-500'
+                    : 'border-slate-300 focus:ring-[var(--theme-primary)] focus:border-[var(--theme-primary)]'
                 }`}
               />
             </div>
@@ -803,7 +803,7 @@ export const CommentsSection: React.FC<CommentsSectionProps> = ({
                 }}
                 placeholder="Tuliskan komentar santun Anda di sini... (Tekan Enter untuk kirim)"
                 rows={1}
-                className="w-full text-xs sm:text-sm px-3 py-2.5 bg-white border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 leading-relaxed text-slate-800 placeholder-slate-400 resize-none transition-all shadow-2xs overflow-y-auto min-h-[42px] max-h-[260px]"
+                className="w-full text-xs sm:text-sm px-3 py-2.5 bg-white border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[var(--theme-primary)] leading-relaxed text-slate-800 placeholder-slate-400 resize-none transition-all shadow-2xs overflow-y-auto min-h-[42px] max-h-[260px]"
                 maxLength={800}
               />
             </div>
@@ -814,7 +814,7 @@ export const CommentsSection: React.FC<CommentsSectionProps> = ({
               disabled={isSubmitting || !commentText.trim()}
               title="Kirim Komentar"
               aria-label="Kirim Komentar"
-              className="h-[38px] w-[38px] rounded-lg bg-blue-600 hover:bg-blue-700 disabled:bg-slate-200 disabled:text-slate-400 text-white flex items-center justify-center shrink-0 transition-all shadow-xs active:scale-95 cursor-pointer disabled:cursor-not-allowed mb-0.5"
+              className="h-[38px] w-[38px] rounded-lg btn-theme-primary disabled:bg-slate-200 disabled:text-slate-400 flex items-center justify-center shrink-0 transition-all shadow-xs active:scale-95 cursor-pointer disabled:cursor-not-allowed mb-0.5"
             >
               <Send className="w-4 h-4" />
             </button>
@@ -822,8 +822,8 @@ export const CommentsSection: React.FC<CommentsSectionProps> = ({
 
           {/* Link Plain Text Info Notice */}
           {containsLink(commentText) && (
-            <div className="flex items-start gap-1.5 p-2 bg-blue-50 border border-blue-200 rounded-lg text-blue-800 text-[11px] leading-tight">
-              <AlertCircle className="w-3.5 h-3.5 text-blue-600 shrink-0 mt-0.5" />
+            <div className="flex items-start gap-1.5 p-2 bg-theme-light border border-[var(--theme-primary)]/20 rounded-lg text-theme-primary text-[11px] leading-tight">
+              <AlertCircle className="w-3.5 h-3.5 text-theme-primary shrink-0 mt-0.5" />
               <div>
                 <span className="font-bold">Informasi Tautan:</span> Tautan (link) yang Anda tulis tidak dapat diklik dan hanya tampil sebagai teks biasa.
               </div>
@@ -869,7 +869,7 @@ export const CommentsSection: React.FC<CommentsSectionProps> = ({
 
               {/* Indented Child Replies Thread */}
               {childReplies.length > 0 && (
-                <div className="ml-4 sm:ml-7 pl-2.5 sm:pl-3 border-l-2 border-blue-200/80 space-y-2 mt-1.5">
+                <div className="ml-4 sm:ml-7 pl-2.5 sm:pl-3 border-l-2 border-[var(--theme-primary)]/30 space-y-2 mt-1.5">
                   {childReplies.map((reply) => renderCommentCard(reply, true))}
                 </div>
               )}

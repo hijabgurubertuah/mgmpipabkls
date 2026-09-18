@@ -43,6 +43,7 @@ import { AccreditationRibbon } from './components/public/AccreditationRibbon';
 import { OfflineIndicator } from './components/public/OfflineIndicator';
 import { AdminDashboard } from './components/admin/AdminDashboard';
 import { AdminLoginModal } from './components/admin/AdminLoginModal';
+import { applyThemeCSSVariables } from './lib/themePresets';
 import { MobileBottomNav } from './components/public/MobileBottomNav';
 import { NewsDetailModal } from './components/public/NewsDetailModal';
 import { ShieldCheck, Sparkles, CheckCircle2, RefreshCw, FlaskConical } from 'lucide-react';
@@ -244,20 +245,9 @@ export default function App() {
     syncPWAManifest(config.identity);
   }, [config.identity]);
 
-  // Synchronize Theme Colors to CSS Root Variables
+  // Synchronize Theme Colors and Nuances to CSS Root Variables
   useEffect(() => {
-    if (config.themeConfig) {
-      const root = document.documentElement;
-      const t = config.themeConfig;
-      if (t.primaryColor) root.style.setProperty('--primary-color', t.primaryColor);
-      if (t.primaryHoverColor) root.style.setProperty('--primary-hover-color', t.primaryHoverColor);
-      if (t.headerBgColor) root.style.setProperty('--header-bg-color', t.headerBgColor);
-      if (t.navbarBgColor) root.style.setProperty('--navbar-bg-color', t.navbarBgColor);
-      if (t.navbarTextColor) root.style.setProperty('--navbar-text-color', t.navbarTextColor);
-      if (t.buttonBgColor) root.style.setProperty('--button-bg-color', t.buttonBgColor);
-      if (t.buttonTextColor) root.style.setProperty('--button-text-color', t.buttonTextColor);
-      if (t.footerBgColor) root.style.setProperty('--footer-bg-color', t.footerBgColor);
-    }
+    applyThemeCSSVariables(config.themeConfig);
   }, [config.themeConfig]);
 
   // Manual refresh trigger for public and admin views

@@ -71,11 +71,105 @@ sub sub, sub sup, sup sub, sup sup {
   font-size: 1em !important;
 }
 
+/* Default Theme CSS Variables Fallback */
+:root {
+  --primary-color: #2563eb;
+  --primary-hover-color: #1d4ed8;
+  --primary-active-color: #1e40af;
+  --primary-dark: #1e3a8a;
+  --primary-light: rgba(37, 99, 235, 0.08);
+  --primary-light-hover: rgba(37, 99, 235, 0.16);
+  --primary-border: rgba(37, 99, 235, 0.25);
+  --primary-ring: rgba(37, 99, 235, 0.35);
+
+  --button-bg-color: #2563eb;
+  --button-hover-color: #1d4ed8;
+  --button-active-color: #1e40af;
+  --button-text-color: #ffffff;
+  --button-shadow: 0 4px 14px 0 rgba(37, 99, 235, 0.28);
+
+  --header-bg-color: #0f172a;
+  --navbar-bg-color: #ffffff;
+  --navbar-text-color: #0f172a;
+  --footer-bg-color: #0f172a;
+  --accent-color: #f59e0b;
+}
+
+/* Unified Theme System Utilities */
+.btn-theme-primary {
+  background-color: var(--button-bg-color, var(--primary-color, #2563eb)) !important;
+  color: var(--button-text-color, #ffffff) !important;
+  transition: all 0.15s ease-in-out;
+}
+.btn-theme-primary:hover:not(:disabled) {
+  background-color: var(--button-hover-color, var(--primary-hover-color, #1d4ed8)) !important;
+}
+.btn-theme-primary:active:not(:disabled) {
+  background-color: var(--button-active-color, #1e40af) !important;
+  transform: scale(0.98);
+}
+
+.btn-theme-outline {
+  background-color: transparent !important;
+  color: var(--primary-color, #2563eb) !important;
+  border-color: var(--primary-border, rgba(37, 99, 235, 0.4)) !important;
+  transition: all 0.15s ease-in-out;
+}
+.btn-theme-outline:hover:not(:disabled) {
+  background-color: var(--primary-light, rgba(37, 99, 235, 0.08)) !important;
+  border-color: var(--primary-color, #2563eb) !important;
+}
+
+.btn-theme-subtle {
+  background-color: var(--primary-light, rgba(37, 99, 235, 0.08)) !important;
+  color: var(--primary-color, #2563eb) !important;
+  border: 1px solid var(--primary-border, rgba(37, 99, 235, 0.2)) !important;
+  transition: all 0.15s ease-in-out;
+}
+.btn-theme-subtle:hover:not(:disabled) {
+  background-color: var(--primary-light-hover, rgba(37, 99, 235, 0.16)) !important;
+}
+
+.badge-theme {
+  background-color: var(--primary-light, rgba(37, 99, 235, 0.08)) !important;
+  color: var(--primary-color, #2563eb) !important;
+  border: 1px solid var(--primary-border, rgba(37, 99, 235, 0.25)) !important;
+}
+
+.text-theme-primary {
+  color: var(--primary-color, #2563eb) !important;
+}
+
+.hover-text-theme-primary:hover {
+  color: var(--primary-color, #2563eb) !important;
+}
+
+.bg-theme-primary {
+  background-color: var(--primary-color, #2563eb) !important;
+}
+
+.bg-theme-light {
+  background-color: var(--primary-light, rgba(37, 99, 235, 0.08)) !important;
+}
+
+.border-theme-primary {
+  border-color: var(--primary-color, #2563eb) !important;
+}
+
+.border-theme-light {
+  border-color: var(--primary-border, rgba(37, 99, 235, 0.25)) !important;
+}
+
+.ring-theme:focus {
+  outline: none !important;
+  box-shadow: 0 0 0 3px var(--primary-ring, rgba(37, 99, 235, 0.35)) !important;
+}
+
 /* Link styling in editor & content renderer */
 [contenteditable] a,
 .prose a,
 .formatted-content a {
-  color: #2563eb !important;
+  color: var(--primary-color, #2563eb) !important;
   text-decoration: underline !important;
   font-weight: 500;
   cursor: pointer;
@@ -84,6 +178,7 @@ sub sub, sub sup, sup sub, sup sup {
 [contenteditable] a:hover,
 .prose a:hover,
 .formatted-content a:hover {
-  color: #1d4ed8 !important;
+  color: var(--primary-hover-color, #1d4ed8) !important;
 }
+
 

@@ -100,7 +100,7 @@ export const FacilitiesAndEkskul: React.FC<FacilitiesAndEkskulProps> = ({
               onClick={() => setActiveTab('facilities')}
               className={`flex-1 lg:flex-initial flex items-center justify-center gap-2 px-4 py-2.5 rounded-lg text-xs sm:text-sm font-bold transition-all cursor-pointer whitespace-nowrap ${
                 activeTab === 'facilities'
-                  ? 'bg-white text-blue-700 shadow-xs'
+                  ? 'bg-white text-theme-primary shadow-xs'
                   : 'text-slate-600 hover:text-slate-900'
               }`}
             >
@@ -111,7 +111,7 @@ export const FacilitiesAndEkskul: React.FC<FacilitiesAndEkskulProps> = ({
               onClick={() => setActiveTab('ekskul')}
               className={`flex-1 lg:flex-initial flex items-center justify-center gap-2 px-4 py-2.5 rounded-lg text-xs sm:text-sm font-bold transition-all cursor-pointer whitespace-nowrap ${
                 activeTab === 'ekskul'
-                  ? 'bg-white text-blue-700 shadow-xs'
+                  ? 'bg-white text-theme-primary shadow-xs'
                   : 'text-slate-600 hover:text-slate-900'
               }`}
             >
@@ -139,7 +139,7 @@ export const FacilitiesAndEkskul: React.FC<FacilitiesAndEkskulProps> = ({
                   />
                 </div>
                 <div className="p-3 sm:p-5 flex flex-col flex-1">
-                  <h3 className="font-bold text-slate-900 text-xs sm:text-sm md:text-base leading-snug group-hover:text-blue-600 transition-colors line-clamp-2">
+                  <h3 className="font-bold text-slate-900 text-xs sm:text-sm md:text-base leading-snug group-hover:text-theme-primary transition-colors line-clamp-2">
                     {fac.title}
                   </h3>
                 </div>
@@ -166,15 +166,15 @@ export const FacilitiesAndEkskul: React.FC<FacilitiesAndEkskulProps> = ({
                       className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                     />
                   ) : (
-                    <div className="w-full h-full bg-gradient-to-br from-blue-50 to-indigo-100 flex items-center justify-center group-hover:scale-105 transition-transform duration-500">
-                      <div className="p-3 rounded-2xl bg-white shadow-xs border border-indigo-50">
+                    <div className="w-full h-full bg-theme-light flex items-center justify-center group-hover:scale-105 transition-transform duration-500">
+                      <div className="p-3 rounded-2xl bg-white shadow-xs border border-slate-100">
                         {getEkskulIcon(ekskul.icon)}
                       </div>
                     </div>
                   )}
                 </div>
                 <div className="p-3 sm:p-5 flex flex-col flex-1">
-                  <h3 className="font-bold text-slate-900 text-xs sm:text-sm md:text-base leading-snug group-hover:text-blue-600 transition-colors line-clamp-2">
+                  <h3 className="font-bold text-slate-900 text-xs sm:text-sm md:text-base leading-snug group-hover:text-theme-primary transition-colors line-clamp-2">
                     {ekskul.name}
                   </h3>
                 </div>

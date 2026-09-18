@@ -183,7 +183,7 @@ export const NewsSection: React.FC<NewsSectionProps> = ({
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               placeholder="Cari berita..."
-              className="w-full pl-9 pr-4 py-2 bg-white border border-slate-300 rounded-xl text-xs sm:text-sm focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent shadow-xs"
+              className="w-full pl-9 pr-4 py-2 bg-white border border-slate-300 rounded-xl text-xs sm:text-sm focus:outline-none focus:ring-2 focus:ring-[var(--theme-primary)] focus:border-transparent shadow-xs"
             />
           </div>
 
@@ -191,7 +191,7 @@ export const NewsSection: React.FC<NewsSectionProps> = ({
           <button
             type="button"
             onClick={handleCycleLayout}
-            className="h-10 px-3 bg-white hover:bg-slate-100 active:bg-slate-200 text-slate-700 hover:text-blue-600 border border-slate-300 rounded-xl transition-all cursor-pointer flex items-center gap-1.5 shadow-xs shrink-0 select-none"
+            className="h-10 px-3 bg-white hover:bg-slate-100 active:bg-slate-200 text-slate-700 hover:text-theme-primary border border-slate-300 rounded-xl transition-all cursor-pointer flex items-center gap-1.5 shadow-xs shrink-0 select-none"
             title={`Layout Tampilan: ${layoutColumns} Kolom`}
             aria-label={`Ubah susunan layout ke ${layoutColumns === 1 ? '2' : layoutColumns === 2 ? '3' : layoutColumns === 3 ? '4' : '1'} kolom`}
           >
@@ -233,7 +233,7 @@ export const NewsSection: React.FC<NewsSectionProps> = ({
               onClick={() => setSelectedCategory(cat)}
               className={`px-3 sm:px-4 py-1.5 sm:py-2 rounded-full text-[11px] sm:text-xs md:text-sm font-bold transition-all cursor-pointer whitespace-nowrap ${
                 selectedCategory === cat
-                  ? 'bg-blue-600 text-white shadow-sm shadow-blue-600/30'
+                  ? 'btn-theme-primary shadow-sm'
                   : 'bg-white text-slate-600 hover:bg-slate-100 border border-slate-200'
               }`}
             >
@@ -318,7 +318,7 @@ export const NewsSection: React.FC<NewsSectionProps> = ({
                   {/* Category & Pinned Badges (Hidden in 2-column or mobile 4-column) */}
                   <div className={`absolute top-1.5 left-1.5 sm:top-3 sm:left-3 flex flex-wrap gap-1 sm:gap-2 ${layoutColumns === 2 || layoutColumns === 4 ? 'hidden sm:flex' : 'flex'}`}>
                     <span
-                      className={`bg-blue-700/90 backdrop-blur-md text-white font-bold rounded uppercase tracking-wider ${
+                      className={`badge-theme backdrop-blur-md font-bold rounded uppercase tracking-wider ${
                         layoutColumns === 3 || layoutColumns === 4
                           ? 'text-[8px] sm:text-[11px] px-1 py-0.5 sm:px-2.5 sm:py-1'
                           : 'text-[10px] sm:text-[11px] px-2 py-0.5 sm:px-2.5 sm:py-1'
@@ -384,7 +384,7 @@ export const NewsSection: React.FC<NewsSectionProps> = ({
                   }`}
                 >
                   <h3
-                    className={`font-bold text-slate-900 leading-snug group-hover:text-blue-600 transition-colors line-clamp-2 ${
+                    className={`font-bold text-slate-900 leading-snug group-hover:text-theme-primary transition-colors line-clamp-2 ${
                       layoutColumns === 4
                         ? 'text-xs sm:text-sm leading-tight'
                         : layoutColumns === 3

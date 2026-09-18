@@ -148,3 +148,107 @@ export function rgbToHex(r: number, g: number, b: number): string {
   const toHex = (v: number) => clamp(v).toString(16).padStart(2, '0');
   return `#${toHex(r)}${toHex(g)}${toHex(b)}`;
 }
+
+/**
+ * Calculate relative luminance to determine optimal text contrast (white vs dark)
+ */
+export function getOptimalTextColor(bgColorStr: string): string {
+  const { r, g, b } = hexOrRgbToRgb(bgColorStr);
+  // WCAG relative luminance formula
+  const luminance = (0.299 * r + 0.587 * g + 0.114 * b) / 255;
+  return luminance > 0.55 ? '#0f172a' : '#ffffff';
+}
+
+/**
+ * Darken a hex color by a given percentage (0 - 100)
+ */
+export function darkenColor(hexStr: string, percent: number): string {
+  const { r, g, b } = hexOrRgbToRgb(hexStr);
+  const factor = Math.max(0, Math.min(1, 1 - percent / 100));
+  return rgbToHex(r * factor, g * factor, b * factor);
+}
+
+/**
+ * Lighten a hex color by a given percentage (0 - 100)
+ */
+export function lightenColor(hexStr: string, percent: number): string {
+  const { r, g, b } = hexOrRgbToRgb(hexStr);
+  const factor = Math.max(0, Math.min(1, percent / 100));
+  return rgbToHex(r + (255 - r) * factor, g + (255 - g) * factor, b + (255 - b) * factor);
+}
+
+/**
+ * Generate a complete, harmonious nuance palette from a single base primary color
+ */
+export function generateThemeNuances(primaryHex: string, customButtonBg?: string, customButtonText?: string) {
+  const primary = primaryHex || '#2563eb';
+  const { r, g, b } = hexOrRgbToRgb(primary);
+  
+  const primaryHover = darkenColor(primary, 12);
+  const primaryActive = darkenColor(primary, 22);
+  const primaryDark = darkenColor(primary, 35);
+  
+  const primaryLight = `rgba(${r}, ${g}, ${b}, 0.08)`;
+  const primaryLightHover = `rgba(${r}, ${g}, ${b}, 0.15)`;
+  const primaryBorder = `rgba(${r}, ${g}, ${b}, 0.25)`;
+  const primaryRing = `rgba(${r}, ${g}, ${b}, 0.35)`;
+
+  const btnBg = customButtonBg || primary;
+  const btnHover = darkenColor(btnBg, 12);
+  const btnActive = darkenColor(btnBg, 22);
+  const btnText = customButtonText || getOptimalTextColor(btnBg);
+  const { r: br, g: bg, b: bb } = hexOrRgbToRgb(btnBg);
+  const btnShadow = `0 4px 14px 0 rgba(${br}, ${bg}, ${bb}, 0.28)`;
+
+  return {
+    primaryColor: primary,
+    primaryHoverColor: primaryHover,
+    primaryActiveColor: primaryActive,
+    primaryDark,
+    primaryLight,
+    primaryLightHover,
+    primaryBorder,
+    primaryRing,
+    buttonBgColor: btnBg,
+    buttonHoverColor: btnHover,
+    buttonActiveColor: btnActive,
+    buttonTextColor: btnText,
+    buttonShadow: btnShadow,
+  };
+}
+
+/**
+ * Apply all theme CSS variables directly to :root / document.documentElement
+ */
+export function applyThemeCSSVariables(theme: Partial<ThemeConfig> = {}) {
+  if (typeof document === 'undefined') return;
+
+  const root = document.documentElement;
+  const primary = theme.primaryColor || '#2563eb';
+  const btnBg = theme.buttonBgColor || primary;
+  const btnText = theme.buttonTextColor || getOptimalTextColor(btnBg);
+
+  const nuances = generateThemeNuances(primary, btnBg, btnText);
+
+  root.style.setProperty('--primary-color', nuances.primaryColor);
+  root.style.setProperty('--primary-hover-color', theme.primaryHoverColor || nuances.primaryHoverColor);
+  root.style.setProperty('--primary-active-color', nuances.primaryActiveColor);
+  root.style.setProperty('--primary-dark', nuances.primaryDark);
+  root.style.setProperty('--primary-light', nuances.primaryLight);
+  root.style.setProperty('--primary-light-hover', nuances.primaryLightHover);
+  root.style.setProperty('--primary-border', nuances.primaryBorder);
+  root.style.setProperty('--primary-ring', nuances.primaryRing);
+
+  root.style.setProperty('--button-bg-color', nuances.buttonBgColor);
+  root.style.setProperty('--button-hover-color', nuances.buttonHoverColor);
+  root.style.setProperty('--button-active-color', nuances.buttonActiveColor);
+  root.style.setProperty('--button-text-color', nuances.buttonTextColor);
+  root.style.setProperty('--button-shadow', nuances.buttonShadow);
+
+  if (theme.headerBgColor) root.style.setProperty('--header-bg-color', theme.headerBgColor);
+  if (theme.navbarBgColor) root.style.setProperty('--navbar-bg-color', theme.navbarBgColor);
+  if (theme.navbarTextColor) root.style.setProperty('--navbar-text-color', theme.navbarTextColor);
+  if (theme.footerBgColor) root.style.setProperty('--footer-bg-color', theme.footerBgColor);
+  if (theme.accentColor) root.style.setProperty('--accent-color', theme.accentColor);
+}
+
